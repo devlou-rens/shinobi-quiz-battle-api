@@ -60,11 +60,18 @@ Base URL: `http://localhost:3001/api/v1`
 
 ## What "completed" means in my game
 
-[One or two sentences: when does a player count as having completed a game? For example: "A player completed the game when they answered every question, even if some answers were wrong or timed out."]
+A player is considered to have completed a game when they have answered all the questions in the game session, regardless of whether their answers are correct or incorrect. Players who leave the game or do not answer all the questions are considered incomplete.
 
 ## Tables
 
-[List your tables, one line each, in the order of your migrations.]
+1. `users`
+2. `QuestionSet`
+3. `GameSession`
+4. `Player`
+5. `Question`
+6. `Answer`
+7. `RewardRound`
+8. `RewardObject`
 
 ## Database scripts
 

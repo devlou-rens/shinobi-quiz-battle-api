@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) =>
       questionSetId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
         allowNull: false,
       },
       hostId: {

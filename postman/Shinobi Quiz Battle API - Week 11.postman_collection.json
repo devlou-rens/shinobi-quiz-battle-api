@@ -1,0 +1,461 @@
+{
+  "info": {
+    "_postman_id": "f59d111b-4d95-4f2c-b9d4-0380b30bc77b",
+    "name": "Shinobi Quiz Battle API - Week 11",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59299340"
+  },
+  "item": [
+    {
+      "name": "01 - It works",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\npm.collectionVariables.set(\r\n    \"setId\",\r\n    response.data.questionSetId\r\n);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Shinobi Quiz Questions\",\r\n  \"subject\": \"General Knowledge\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 - A field is wrong",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"A\",\r\n  \"subject\": 123\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03 - The body is broken",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Broken JSON\",\r\n  \"subject\": \"General Knowledge\"",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "04 - Nobody",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05 - The wrong role",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179795"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "06 - List",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07 - Read one",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "08 - It does not exist",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets/999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "09 - The id is not a number",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets/abc",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets",
+            "abc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10 - Update",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Shinobi Quiz Questions Updated\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11 - Not the owner",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179712"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Shinobi Quiz Questions Updated\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12 - Nothing to change",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13 - Delete (keep it last)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "24179444"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/v1/question-sets/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "v1",
+            "question-sets",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "host",
+      "value": ""
+    },
+    {
+      "key": "otherHost",
+      "value": ""
+    },
+    {
+      "key": "player",
+      "value": ""
+    },
+    {
+      "key": "setId",
+      "value": ""
+    }
+  ]
+}

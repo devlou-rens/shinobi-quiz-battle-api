@@ -1,14 +1,12 @@
-
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'Player',
     {
       playerId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false,
-    },
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+      },
       sessionId: {
         type: DataTypes.INTEGER,
         allowNull: false,

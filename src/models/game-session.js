@@ -1,14 +1,12 @@
-
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'GameSession',
     {
       sessionId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false,
-    },
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+      },
       hostId: {
         type: DataTypes.INTEGER,
         allowNull: false,

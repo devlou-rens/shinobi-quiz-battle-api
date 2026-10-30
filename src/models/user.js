@@ -1,5 +1,5 @@
-
-// Model = the JavaScript view of the users table.
+// Model = the JavaScript view of ONE table. Column rules live in the migration;
+// the model only tells Sequelize how to read and write the table.
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'User',

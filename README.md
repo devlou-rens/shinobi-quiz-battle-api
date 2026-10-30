@@ -58,6 +58,18 @@ Base URL: `http://localhost:3001/api/v1`
 | GET | /game-info | Slug, name, group, developer, description, player limits, version | 200 |
 | GET | /results | Finished games, every player, and the top 3. Needs the `X-Hub-Key` header. Optional `?since=` | 200 (401 without the key) |
 
+## API Endpoints
+
+The following table lists the API endpoints, their HTTP methods, and the users or roles permitted to call them.
+
+| Method | Endpoint | Who May Call It | Purpose |
+|---|---|---|---|
+| POST | `/api/v1/sessions` | Host or Admin | Create a game session |
+| GET | `/api/v1/sessions/:code` | Caller permitted by the API's access rules | Retrieve a session using its join code |
+| PATCH | `/api/v1/sessions/:code` | Host or Admin | Update a session's status |
+| POST | `/api/v1/sessions/:code/players` | Caller permitted by the API's access rules | Join or rejoin a session |
+| GET | `/api/v1/sessions/:code/players` | Caller permitted by the API's access rules | List players in a session |
+
 ## What "completed" means in my game
 
 A player is considered to have completed a game when they have answered all the questions in the game session, regardless of whether their answers are correct or incorrect. Players who leave the game or do not answer all the questions are considered incomplete.

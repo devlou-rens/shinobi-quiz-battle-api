@@ -31,9 +31,9 @@ async function getSession(req, res, next) {
     const session = await sessionService.getSessionByCode(joinCode);
 
     if (!session) {
-      return res.status(404).json({
-        message: 'Session not found.',
-      });
+    const error = new Error('Session not found.');
+    error.status = 404;
+    throw error;
     }
 
     return res.status(200).json({ session });

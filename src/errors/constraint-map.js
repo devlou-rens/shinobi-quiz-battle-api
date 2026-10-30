@@ -1,3 +1,17 @@
+module.exports = {
+  // Add your actual database constraint names here.
+    uq_player_session_nickname: {
+    status: 409,
+    code: 'NICKNAME_TAKEN',
+    message: 'That nickname is already used in this game.',
+    },
+
+    uq_player_session_user: {
+        status: 409,
+        code: 'PLAYER_ALREADY_JOINED',
+        message: 'This player has already joined the game.',
+    },
+};
 // A database rule was broken -> what the client should hear.
 // The key is the constraint name from YOUR migration. PostgreSQL names a
 // foreign key "<table>_<column>_fkey" when the migration does not name it.

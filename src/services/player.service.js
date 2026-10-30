@@ -53,34 +53,14 @@ async function joinSession(joinCode, userId, nickname, avatar) {
     throw error;
   }
 
-  let player;
-
-  try {
-    player = await playerRepository.createPlayer({
-      sessionId: session.sessionId,
-      user_id: userId,
-      nickname: nickname.trim(),
-      avatar,
-      chakra: 0,
-    });
-  } catch (error) {
-    if (
-      error.name === 'SequelizeUniqueConstraintError' &&
-      (
-        error.parent?.constraint === 'uq_player_session_nickname' ||
-        error.fields?.nickname
-      )
-    ) {
-      const conflict = new Error(
-        'This nickname is already taken in this session.'
-      );
-      conflict.status = 409;
-      conflict.code = 'CONFLICT';
-      throw conflict;
-    }
-
-    throw error;
-  }
+  // Let database constraint errors reach the global error handler.
+  const player = await playerRepository.createPlayer({
+    sessionId: session.sessionId,
+    user_id: userId,
+    nickname: nickname.trim(),
+    avatar,
+    chakra: 0,
+  });
 
   return {
     player,

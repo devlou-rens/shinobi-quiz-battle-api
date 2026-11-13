@@ -5,7 +5,7 @@ Student: Lourens Gacias · Section: BSCS 3-1 · Group: Team 2
 One entry per milestone, written the week you did it. Newest at the bottom.
 ## Initial Setup · Weeks 12–18 Kit
 
-- Dates worked: November 12–13, 2026 · Time spent: [Enter your actual total hours]
+- Dates worked: November 12–13, 2026 · Time spent: 25 hours
 - Goal: Prepare my Week 11 Shinobi Quiz Battle API project for the Weeks 12–18 requirements.
 - What I built: Installed the instructor kit, added the required dependencies for authentication, file uploads, security, API documentation, and automated testing. Updated the environment configuration to support JWT authentication and CORS.
 - Evidence: Branch `feature/auth` · Commit `0cfd0e9` — `chore: install the Weeks 12-18 kit`

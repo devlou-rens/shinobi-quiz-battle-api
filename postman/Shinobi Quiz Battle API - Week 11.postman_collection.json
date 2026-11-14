@@ -1,11 +1,1432 @@
 {
   "info": {
-    "_postman_id": "f59d111b-4d95-4f2c-b9d4-0380b30bc77b",
+    "_postman_id": "88d6f81f-c18f-4b47-993b-8741cbef8e26",
     "name": "Shinobi Quiz Battle API - Week 11",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "59299340"
   },
   "item": [
+    {
+      "name": "Module 2 - Sessions and Joining",
+      "item": [
+        {
+          "name": "01 - A host starts a game (201 Created)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Host creating a game returns 201 Created\", function () { pm.response.to.have.status(201); });",
+                  "const body = pm.response.json();",
+                  "function findValue(obj, keys) {",
+                  "  if (!obj || typeof obj !== \"object\") return undefined;",
+                  "  for (const key of keys) if (obj[key] !== undefined && obj[key] !== null) return obj[key];",
+                  "  for (const key of [\"data\", \"session\", \"player\", \"result\"]) {",
+                  "    if (obj[key] && typeof obj[key] === \"object\") {",
+                  "      const found = findValue(obj[key], keys);",
+                  "      if (found !== undefined) return found;",
+                  "    }",
+                  "  }",
+                  "  return undefined;",
+                  "}",
+                  "const code = findValue(body, [\"joinCode\", \"join_code\", \"sessionCode\", \"session_code\", \"code\"]);",
+                  "pm.test(\"Response contains a six-digit game code\", function () { pm.expect(String(code || \"\")).to.match(/^\\d{6}$/); });",
+                  "if (code) pm.collectionVariables.set(\"sessionCode\", String(code));",
+                  "pm.test(\"Game starts in LOBBY\", function () {",
+                  "  const status = findValue(body, [\"status\", \"sessionStatus\", \"session_status\"]);",
+                  "  pm.expect(String(status || \"\").toUpperCase()).to.eql(\"LOBBY\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{hostSchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionSetId\": 1,\n  \"timeLimit\": 600\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02 - A player tries to start a game (403 Forbidden)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Player creating a game returns 403 Forbidden\", function () { pm.response.to.have.status(403); });",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Error response uses the standard format\", function () {",
+                  "  pm.expect(body).to.have.property(\"error\");",
+                  "  pm.expect(body.error).to.have.property(\"code\");",
+                  "  pm.expect(body.error).to.have.property(\"message\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{player1SchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionSetId\": 1,\n  \"timeLimit\": 600\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Read the game (200 OK)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Read game returns 200 OK\", function () { pm.response.to.have.status(200); });",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Response contains the game code\", function () {",
+                  "  pm.expect(JSON.stringify(body)).to.include(pm.collectionVariables.get(\"sessionCode\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{hostSchoolId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/{{sessionCode}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04 - A code that is not six digits (400 Bad Request)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Code that is not six digits returns 400 Bad Request\", function () { pm.response.to.have.status(400); });",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Error response uses the standard format\", function () {",
+                  "  pm.expect(body).to.have.property(\"error\");",
+                  "  pm.expect(body.error).to.have.property(\"code\");",
+                  "  pm.expect(body.error).to.have.property(\"message\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{hostSchoolId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/12345",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "12345"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "05 - A code that no game uses (404 Not Found)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Unused six-digit code returns 404 Not Found\", function () { pm.response.to.have.status(404); });",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Error response uses the standard format\", function () {",
+                  "  pm.expect(body).to.have.property(\"error\");",
+                  "  pm.expect(body.error).to.have.property(\"code\");",
+                  "  pm.expect(body.error).to.have.property(\"message\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{hostSchoolId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/999999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "999999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "06 - A player joins (201 Created)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Player joining returns 201 Created\", function () { pm.response.to.have.status(201); });",
+                  "const body = pm.response.json();",
+                  "function findValue(obj, keys) {",
+                  "  if (!obj || typeof obj !== \"object\") return undefined;",
+                  "  for (const key of keys) if (obj[key] !== undefined && obj[key] !== null) return obj[key];",
+                  "  for (const key of [\"data\", \"session\", \"player\", \"result\"]) {",
+                  "    if (obj[key] && typeof obj[key] === \"object\") {",
+                  "      const found = findValue(obj[key], keys);",
+                  "      if (found !== undefined) return found;",
+                  "    }",
+                  "  }",
+                  "  return undefined;",
+                  "}",
+                  "const playerId = findValue(body, [\"playerId\", \"player_id\"]);",
+                  "pm.test(\"Response contains a player ID\", function () { pm.expect(playerId).to.not.equal(undefined); });",
+                  "if (playerId !== undefined) pm.collectionVariables.set(\"player1Id\", String(playerId));",
+                  "pm.test(\"First join is not marked as rejoin\", function () { pm.expect(findValue(body, [\"rejoined\"])).to.eql(false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{player1SchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"{{player1Nickname}}\",\n  \"avatar\": \"{{player1Avatar}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/{{sessionCode}}/players",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "players"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07 - The same player joins again (200 OK)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Same player joining again returns 200 OK\", function () { pm.response.to.have.status(200); });",
+                  "const body = pm.response.json();",
+                  "function findValue(obj, keys) {",
+                  "  if (!obj || typeof obj !== \"object\") return undefined;",
+                  "  for (const key of keys) if (obj[key] !== undefined && obj[key] !== null) return obj[key];",
+                  "  for (const key of [\"data\", \"session\", \"player\", \"result\"]) {",
+                  "    if (obj[key] && typeof obj[key] === \"object\") {",
+                  "      const found = findValue(obj[key], keys);",
+                  "      if (found !== undefined) return found;",
+                  "    }",
+                  "  }",
+                  "  return undefined;",
+                  "}",
+                  "pm.test(\"Same player ID is returned\", function () {",
+                  "  pm.expect(String(findValue(body, [\"playerId\", \"player_id\"]))).to.eql(String(pm.collectionVariables.get(\"player1Id\")));",
+                  "});",
+                  "pm.test(\"Response marks rejoined true\", function () { pm.expect(findValue(body, [\"rejoined\"])).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{player1SchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"{{player1Nickname}}\",\n  \"avatar\": \"{{player1Avatar}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/{{sessionCode}}/players",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "players"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "08 - A second player takes a used nickname (409 Conflict)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Duplicate nickname returns 409 Conflict\", function () { pm.response.to.have.status(409); });",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Error response uses the standard format\", function () {",
+                  "  pm.expect(body).to.have.property(\"error\");",
+                  "  pm.expect(body.error).to.have.property(\"code\");",
+                  "  pm.expect(body.error).to.have.property(\"message\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{player2SchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"{{player1Nickname}}\",\n  \"avatar\": \"{{player2Avatar}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/{{sessionCode}}/players",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "players"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "09 - A nickname that is too short (400 Bad Request)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Too-short nickname returns 400 Bad Request\", function () { pm.response.to.have.status(400); });",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Error response uses the standard format\", function () {",
+                  "  pm.expect(body).to.have.property(\"error\");",
+                  "  pm.expect(body.error).to.have.property(\"code\");",
+                  "  pm.expect(body.error).to.have.property(\"message\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{player2SchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"A\",\n  \"avatar\": \"{{player2Avatar}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/{{sessionCode}}/players",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "players"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "10 - The host starts the game (200 OK)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Host changing LOBBY to RUNNING returns 200 OK\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Response shows RUNNING status\", function () {",
+                  "  pm.expect(JSON.stringify(pm.response.json()).toUpperCase()).to.include(\"RUNNING\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{hostSchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"RUNNING\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/{{sessionCode}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "11 - A new player joins too late (409 Conflict)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"New player joining a RUNNING game returns 409 Conflict\", function () { pm.response.to.have.status(409); });",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Error response uses the standard format\", function () {",
+                  "  pm.expect(body).to.have.property(\"error\");",
+                  "  pm.expect(body.error).to.have.property(\"code\");",
+                  "  pm.expect(body.error).to.have.property(\"message\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{player2SchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"{{player2Nickname}}\",\n  \"avatar\": \"{{player2Avatar}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/{{sessionCode}}/players",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "players"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "12 - A status change that is not allowed (409 Conflict)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Changing RUNNING back to LOBBY returns 409 Conflict\", function () { pm.response.to.have.status(409); });",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Error response uses the standard format\", function () {",
+                  "  pm.expect(body).to.have.property(\"error\");",
+                  "  pm.expect(body.error).to.have.property(\"code\");",
+                  "  pm.expect(body.error).to.have.property(\"message\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{hostSchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"LOBBY\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/sessions/{{sessionCode}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Log in (run this folder first)",
+      "item": [
+        {
+          "name": "01 - HOST login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HOST login successful\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\nif (response.token) {\r\n    pm.collectionVariables.set(\"hostToken\", response.token);\r\n    console.log(\"HOST token saved successfully.\");\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"24179444\",\r\n  \"password\": \"shinobi123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02 - PLAYER login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"PLAYER login successful\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\nif (response.token) {\r\n    pm.collectionVariables.set(\"playerToken\", response.token);\r\n    console.log(\"PLAYER token saved successfully.\");\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"24179795\",\r\n  \"password\": \"ShinobiDemo2026!\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03 - KAKASHI HOST login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Kakashi HOST login successful\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\nif (response.token) {\r\n    pm.collectionVariables.set(\"kakashiHostToken\", response.token);\r\n    console.log(\"Kakashi HOST token saved.\");\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"24179712\",\r\n  \"password\": \"ShinobiDemo2026!\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04 - ADMIN login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"PLAYER login successful\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\nif (response.token) {\r\n    pm.collectionVariables.set(\"playerToken\", response.token);\r\n    console.log(\"PLAYER token saved successfully.\");\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"24179795\",\r\n  \"password\": \"ShinobiDemo2026!\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "01 - Register always creates PLAYER",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Registration returns 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\npm.test(\"Registration always creates PLAYER\", function () {\r\n    pm.expect(response.user.role).to.eql(\"PLAYER\");\r\n});\r\n\r\npm.test(\"Password hash is not exposed\", function () {\r\n    pm.expect(response.user).to.not.have.property(\"password_hash\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"99999881\",\r\n  \"full_name\": \"Postman Test Player\",\r\n  \"email\": \"postmanplayer01@example.test\",\r\n  \"password\": \"PlayerPass123\",\r\n  \"role\": \"ADMIN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02 - Duplicate school ID returns 409",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Duplicate school ID returns 409\", function () {\r\n    pm.response.to.have.status(409);\r\n});\r\n\r\npm.test(\"Error code is SCHOOL_ID_EXISTS\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.error.code).to.eql(\"SCHOOL_ID_EXISTS\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"99999881\",\r\n  \"full_name\": \"Duplicate School ID Test\",\r\n  \"email\": \"duplicate-schoolid@example.test\",\r\n  \"password\": \"PlayerPass123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Duplicate email returns 409",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Duplicate email returns 409\", function () {\r\n    pm.response.to.have.status(409);\r\n});\r\n\r\npm.test(\"Error code is EMAIL_EXISTS\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.error.code).to.eql(\"EMAIL_EXISTS\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"99999882\",\r\n  \"full_name\": \"Duplicate Email Test\",\r\n  \"email\": \"postmanplayer01@example.test\",\r\n  \"password\": \"PlayerPass123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04 - Weak password returns 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Weak password returns 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Validation error is returned\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.error.code).to.eql(\"VALIDATION_FAILED\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"99999883\",\r\n  \"full_name\": \"Weak Password Test\",\r\n  \"email\": \"weakpassword@example.test\",\r\n  \"password\": \"abc\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "05 - Wrong password returns 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Wrong password returns 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\npm.test(\"Error code is INVALID_CREDENTIALS\", function () {\r\n    pm.expect(response.error.code).to.eql(\"INVALID_CREDENTIALS\");\r\n});\r\n\r\npm.collectionVariables.set(\"wrongLoginError\", JSON.stringify(response));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"24179444\",\r\n  \"password\": \"WrongPassword123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "06 - Unknown school ID returns 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Unknown school ID returns 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\npm.test(\"Error code is INVALID_CREDENTIALS\", function () {\r\n    pm.expect(response.error.code).to.eql(\"INVALID_CREDENTIALS\");\r\n});\r\n\r\npm.test(\"Unknown and wrong login errors are identical\", function () {\r\n    pm.expect(JSON.stringify(response))\r\n        .to.eql(pm.collectionVariables.get(\"wrongLoginError\"));\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Demo-User",
+                "value": "{{player1SchoolId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school_id\": \"88888888\",\n  \"password\": \"WrongPassword123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07 - Auth me with valid token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Valid token returns 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Authenticated user is HOST\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.user.role).to.eql(\"HOST\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_19vz}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "08 - Auth me without token returns 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Missing token returns 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Error code is AUTH_REQUIRED\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.error.code).to.eql(\"AUTH_REQUIRED\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "09 - Changed token returns 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Changed token returns 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Error code is INVALID_TOKEN\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.error.code).to.eql(\"INVALID_TOKEN\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{hostToken}}x",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "10 - X-Demo-User cannot authenticate",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"X-Demo-User cannot authenticate\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Authentication is required\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.error.code).to.eql(\"AUTH_REQUIRED\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Demo-User",
+                "value": "\t24179444"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "11 - PLAYER cannot access users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"PLAYER is forbidden from users endpoint\", function () {\r\n    pm.response.to.have.status(403);\r\n});\r\n\r\npm.test(\"Error code is FORBIDDEN\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.error.code).to.eql(\"FORBIDDEN\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "12 - ADMIN can list users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"ADMIN can list users\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Users are returned\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.users).to.be.an(\"array\");\r\n    pm.expect(response.users.length).to.be.above(0);\r\n});\r\n\r\npm.test(\"Password hashes are not exposed\", function () {\r\n    const response = pm.response.json();\r\n\r\n    response.users.forEach(function (user) {\r\n        pm.expect(user).to.not.have.property(\"password_hash\");\r\n    });\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "13 - ADMIN can promote PLAYER to HOST",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"ADMIN can promote PLAYER to HOST\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"User role is now HOST\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.user.role).to.eql(\"HOST\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"role\": \"HOST\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/11/role",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "11",
+                "role"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "14 - ADMIN cannot change own role",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"ADMIN cannot change own role\", function () {\r\n    pm.response.to.have.status(409);\r\n});\r\n\r\npm.test(\"Error code is CANNOT_CHANGE_OWN_ROLE\", function () {\r\n    const response = pm.response.json();\r\n    pm.expect(response.error.code).to.eql(\"CANNOT_CHANGE_OWN_ROLE\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"role\": \"PLAYER\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3001/api/v1/users/10/role",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "10",
+                "role"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
     {
       "name": "01 - It works",
       "event": [
@@ -20,11 +1441,25 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{hostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [
           {
             "key": "X-Demo-User",
             "value": "24179444"
+          },
+          {
+            "key": "X-Hub-Key",
+            "value": "dev-hub-key"
           }
         ],
         "body": {
@@ -37,12 +1472,10 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets",
-          "protocol": "http",
+          "raw": "{{baseUrl}}/api/v1/question-sets",
           "host": [
-            "localhost"
+            "{{baseUrl}}"
           ],
-          "port": "3001",
           "path": [
             "api",
             "v1",
@@ -55,6 +1488,16 @@
     {
       "name": "02 - A field is wrong",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{hostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [
           {
@@ -90,6 +1533,16 @@
     {
       "name": "03 - The body is broken",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{hostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [
           {
@@ -124,6 +1577,9 @@
     },
     {
       "name": "04 - Nobody",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [
@@ -160,7 +1616,20 @@
     },
     {
       "name": "05 - The wrong role",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{playerToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [
           {
@@ -168,6 +1637,15 @@
             "value": "24179795"
           }
         ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
           "raw": "http://localhost:3001/api/v1/question-sets",
           "protocol": "http",
@@ -187,6 +1665,16 @@
     {
       "name": "06 - List",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{hostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [
           {
@@ -213,6 +1701,16 @@
     {
       "name": "07 - Read one",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{hostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [
           {
@@ -221,7 +1719,7 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/3",
+          "raw": "http://localhost:3001/api/v1/question-sets/2",
           "protocol": "http",
           "host": [
             "localhost"
@@ -231,7 +1729,7 @@
             "api",
             "v1",
             "question-sets",
-            "3"
+            "2"
           ]
         }
       },
@@ -240,6 +1738,16 @@
     {
       "name": "08 - It does not exist",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{hostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [
           {
@@ -267,6 +1775,16 @@
     {
       "name": "09 - The id is not a number",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{hostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [
           {
@@ -294,6 +1812,16 @@
     {
       "name": "10 - Update",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{hostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "PATCH",
         "header": [
           {
@@ -303,7 +1831,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"title\": \"Shinobi Quiz Questions Updated\"\r\n}",
+          "raw": "{\r\n  \"title\": \"Shinobi Quiz Questions Updated!\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -311,7 +1839,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/3",
+          "raw": "http://localhost:3001/api/v1/question-sets/2",
           "protocol": "http",
           "host": [
             "localhost"
@@ -321,7 +1849,7 @@
             "api",
             "v1",
             "question-sets",
-            "3"
+            "2"
           ]
         }
       },
@@ -329,7 +1857,28 @@
     },
     {
       "name": "11 - Not the owner",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Kakashi HOST login successful\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst response = pm.response.json();\r\n\r\nif (response.token) {\r\n    pm.collectionVariables.set(\"kakashiHostToken\", response.token);\r\n    console.log(\"Kakashi HOST token saved successfully.\");\r\n}\r\npm.collectionVariables.set(\r\n    \"kakashiHostToken\",\r\n    pm.response.json().token\r\n);"
+            ]
+          }
+        }
+      ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{kakashiHostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "PATCH",
         "header": [
           {
@@ -347,7 +1896,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/4",
+          "raw": "http://localhost:3001/api/v1/question-sets/2",
           "protocol": "http",
           "host": [
             "localhost"
@@ -357,7 +1906,7 @@
             "api",
             "v1",
             "question-sets",
-            "4"
+            "2"
           ]
         }
       },
@@ -366,6 +1915,16 @@
     {
       "name": "12 - Nothing to change",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{hostToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "PATCH",
         "header": [
           {
@@ -383,7 +1942,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/4",
+          "raw": "http://localhost:3001/api/v1/question-sets/2",
           "protocol": "http",
           "host": [
             "localhost"
@@ -393,7 +1952,7 @@
             "api",
             "v1",
             "question-sets",
-            "4"
+            "2"
           ]
         }
       },
@@ -439,7 +1998,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": ""
+      "value": "http://localhost:3001"
     },
     {
       "key": "host",
@@ -455,6 +2014,77 @@
     },
     {
       "key": "setId",
+      "value": ""
+    },
+    {
+      "key": "player2Nickname",
+      "value": "TemariTest"
+    },
+    {
+      "key": "player2Avatar",
+      "value": "temari.png"
+    },
+    {
+      "key": "player1Nickname",
+      "value": "SakuraTest"
+    },
+    {
+      "key": "player1Avatar",
+      "value": "sakura.png"
+    },
+    {
+      "key": "sessionCode",
+      "value": "820662"
+    },
+    {
+      "key": "player2SchoolId",
+      "value": "24179795"
+    },
+    {
+      "key": "player1SchoolId",
+      "value": "24179723"
+    },
+    {
+      "key": "hostSchoolId",
+      "value": "24179712"
+    },
+    {
+      "key": "questionSetId",
+      "value": "1"
+    },
+    {
+      "key": "player1Id",
+      "value": ""
+    },
+    {
+      "key": "code",
+      "value": ""
+    },
+    {
+      "key": "hostToken",
+      "value": ""
+    },
+    {
+      "key": "playerToken",
+      "value": ""
+    },
+    {
+      "key": "kakashiHostToken",
+      "value": ""
+    },
+    {
+      "key": "adminToken",
+      "value": ""
+    },
+    {
+      "key": "wrongLoginError",
+      "value": ""
+    },
+    {
+      "key": "json_web_token_19vz",
+      "secret": true
+    },
+    {
       "value": ""
     }
   ]

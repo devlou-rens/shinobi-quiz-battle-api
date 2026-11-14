@@ -27,6 +27,7 @@ module.exports = {
   hubApiKey: process.env.HUB_API_KEY,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1h',
+  bcryptRounds: Number(process.env.BCRYPT_ROUNDS) || 10,
   corsOrigins: process.env.CORS_ORIGINS.split(',').map((origin) => origin.trim()),
   db: {
     host: process.env.DB_HOST,

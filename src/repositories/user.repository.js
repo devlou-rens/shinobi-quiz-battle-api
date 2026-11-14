@@ -32,8 +32,15 @@ function update(user, changes) {
   return user.update(changes);
 }
 
+function findByEmail(email) {
+  return User.findOne({
+    where: { email },
+  });
+}
+
 module.exports = {
   findBySchoolId,
+  findByEmail,
   findForLogin,
   findById,
   findAll,

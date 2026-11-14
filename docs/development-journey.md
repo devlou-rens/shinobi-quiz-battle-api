@@ -17,15 +17,16 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 
 
 ## M1 · Accounts, passwords and tokens
-- Dates worked: [e.g. Nov 4 to Nov 7, 2026] · Time spent: [hours]
-- Goal: [one sentence]
-- What I built: [files and endpoints]
-- Evidence: [pull request link] · [two or three commit hashes]
-- Problem I hit: [the error or wrong behaviour]
-- How I solved it: [what you tried, what worked, where you found the answer]
-- Decision I made and why: [a rule, a limit or a name, and its cost]
-- Changes to my design set: [ERD, data dictionary or endpoint table changes, or "none"]
-- What I would explain to a classmate: [one idea, in your own words]
+
+- Dates worked: November 13–14, 2026 · Time spent: 11hrs total
+- Goal: Implement secure account registration, login, JWT authentication, and role-based access control for the Shinobi Quiz Battle API.
+- What I built: Added password hashing using bcryptjs, JWT token creation and verification, registration and login validation, and account management for administrators. Implemented `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `GET /users`, and `PATCH /users/:id/role`. Updated middleware to protect routes using Bearer tokens and user roles. Added Postman login and Accounts folders with automated request tests.
+- Evidence: Branch `feature/auth` · Commits: `1cf30b8` — `feat: add password hashes for demo users`; `0cfd0e9` — `chore: install the Weeks 12-18 kit`; [add M1 implementation commit and pull request link after pushing].
+- Problem I hit: The `/auth/me` endpoint returned `AUTH_REQUIRED` even when I supplied a valid token. I also encountered an invalid token in Postman when the Kakashi login token was not being saved correctly.
+- How I solved it: Corrected the route middleware order so that the current-user middleware runs before the protected authentication routes. Fixed the Postman login test script to save the Kakashi HOST token as a collection variable, then tested the ownership restriction again.
+- Decision I made and why: New registrations always receive the `PLAYER` role, even if someone attempts to submit `ADMIN` or `HOST`. Only an administrator can change account roles. This prevents users from giving themselves higher privileges.
+- Changes to my design set: Added `password_hash` to the existing `users` table through a migration. Updated the authentication and user-management endpoint requirements. Kept the existing Week 11 database structure.
+- What I would explain to a classmate: Passwords should never be stored as plain text. Hash passwords before saving them, use tokens to authenticate requests, and check user roles before allowing access to protected features.
 
 ## M2 · The question bank
 

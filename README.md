@@ -85,6 +85,23 @@ A player is considered to have completed a game when they have answered all the 
 7. `RewardRound`
 8. `RewardObject`
 
+## Demo accounts
+
+The following accounts are available for testing the Shinobi Quiz Battle API.
+
+**Shared demo password:** `shinobi123`
+
+| School ID | Account | Role |
+|---|---|---|
+| `24179712` | Kakashi Hatake | HOST |
+| `24179723` | Hinata Hyuga | PLAYER |
+| `24179795` | Naruto Uzumaki | PLAYER |
+| `24179111` | Sasuke Uchiha | PLAYER |
+| `24179221` | Sakura Haruno | PLAYER |
+| `24179333` | Tsunade Senju | HOST |
+
+These are development and testing accounts only.
+
 ## Database scripts
 
 | Command | What it does |

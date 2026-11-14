@@ -1,5 +1,6 @@
-// Model = the JavaScript view of ONE table. Column rules live in the migration;
-// the model only tells Sequelize how to read and write the table.
+
+// Model = the JavaScript view of ONE table.
+// Column rules live in the migration.
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'User',
@@ -10,7 +11,7 @@ module.exports = (sequelize, DataTypes) =>
         autoIncrement: true,
       },
       school_id: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(30),
         allowNull: false,
         unique: true,
       },
@@ -19,7 +20,7 @@ module.exports = (sequelize, DataTypes) =>
         allowNull: false,
       },
       email: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(100),
         allowNull: false,
         unique: true,
       },
@@ -28,11 +29,25 @@ module.exports = (sequelize, DataTypes) =>
         allowNull: false,
         defaultValue: 'PLAYER',
       },
+      password_hash: {
+        type: DataTypes.STRING(60),
+        allowNull: true,
+      },
     },
     {
       tableName: 'users',
       timestamps: false,
-      createdAt: 'created_at',
-      updatedAt: false,
+
+      // Password hashes must never appear in normal queries.
+      defaultScope: {
+        attributes: { exclude: ['password_hash'] },
+      },
+
+      // Login explicitly requests the password hash.
+      scopes: {
+        withPassword: {
+          attributes: { include: ['password_hash'] },
+        },
+      },
     }
   );

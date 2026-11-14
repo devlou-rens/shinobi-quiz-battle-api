@@ -5,7 +5,7 @@ Student: Lourens Gacias · Section: BSCS 3-1 · Group: Team 2
 One entry per milestone, written the week you did it. Newest at the bottom.
 ## Initial Setup · Weeks 12–18 Kit
 
-- Dates worked: November 12–13, 2026 · Time spent: 25 hours
+- Dates worked: November 12–13, 2026 · Time spent: 8hrs total
 - Goal: Prepare my Week 11 Shinobi Quiz Battle API project for the Weeks 12–18 requirements.
 - What I built: Installed the instructor kit, added the required dependencies for authentication, file uploads, security, API documentation, and automated testing. Updated the environment configuration to support JWT authentication and CORS.
 - Evidence: Branch `feature/auth` · Commit `0cfd0e9` — `chore: install the Weeks 12-18 kit`
@@ -21,7 +21,7 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 - Dates worked: November 13–14, 2026 · Time spent: 11hrs total
 - Goal: Implement secure account registration, login, JWT authentication, and role-based access control for the Shinobi Quiz Battle API.
 - What I built: Added password hashing using bcryptjs, JWT token creation and verification, registration and login validation, and account management for administrators. Implemented `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `GET /users`, and `PATCH /users/:id/role`. Updated middleware to protect routes using Bearer tokens and user roles. Added Postman login and Accounts folders with automated request tests.
-- Evidence: Branch `feature/auth` · Commits: `1cf30b8` — `feat: add password hashes for demo users`; `0cfd0e9` — `chore: install the Weeks 12-18 kit`; [add M1 implementation commit and pull request link after pushing].
+- Evidence: Branch `feature/auth` · Commits: `1cf30b8` — `feat: add password hashes for demo users`; `56d623a` — `feat: add account authentication and role management`; `9d06eb4` — `docs: implement secure account registration, login, and role-based access control`. Pull request: [#3 — M1 Authentication](https://github.com/devlou-rens/shinobi-quiz-battle-api/pull/3) (merged).
 - Problem I hit: The `/auth/me` endpoint returned `AUTH_REQUIRED` even when I supplied a valid token. I also encountered an invalid token in Postman when the Kakashi login token was not being saved correctly.
 - How I solved it: Corrected the route middleware order so that the current-user middleware runs before the protected authentication routes. Fixed the Postman login test script to save the Kakashi HOST token as a collection variable, then tested the ownership restriction again.
 - Decision I made and why: New registrations always receive the `PLAYER` role, even if someone attempts to submit `ADMIN` or `HOST`. Only an administrator can change account roles. This prevents users from giving themselves higher privileges.

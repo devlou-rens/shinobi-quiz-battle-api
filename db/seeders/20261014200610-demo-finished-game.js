@@ -4,9 +4,10 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface) {
-    // Find the host account created by demo-users.
+    // Database connection.
     const db = queryInterface.sequelize;
 
+    // Find the host account created by demo-users.
     const [[host]] = await db.query(`
       SELECT user_id
       FROM users
@@ -16,12 +17,15 @@ module.exports = {
     const [[player1]] = await db.query(`
       SELECT user_id FROM users WHERE school_id = '24179723'
     `);
+
     const [[player2]] = await db.query(`
       SELECT user_id FROM users WHERE school_id = '24179795'
     `);
+
     const [[player3]] = await db.query(`
       SELECT user_id FROM users WHERE school_id = '24179111'
     `);
+
     const [[player4]] = await db.query(`
       SELECT user_id FROM users WHERE school_id = '24179333'
     `);
@@ -31,36 +35,38 @@ module.exports = {
     }
 
     // Question set.
-    await queryInterface.bulkInsert('QuestionSet', [{
-      questionSetId: 1,
-      hostId: host.user_id,
-      title: 'Shinobi Basics',
-      subject: 'General Knowledge',
-    }]);
+    await queryInterface.bulkInsert('QuestionSet', [
+      {
+        questionSetId: 1,
+        hostId: host.user_id,
+        title: 'Shinobi Basics',
+        subject: 'General Knowledge',
+      },
+    ]);
 
     // One finished game.
     await queryInterface.bulkInsert('GameSession', [
-  {
-    sessionId: 1,
-    hostId: host.user_id,
-    questionSetId: 1,
-    joinCode: '418263',
-    status: 'CLOSED',
-    timeLimit: 600,
-    startTime: new Date('2026-10-10T01:00:00Z'),
-    endTime: new Date('2026-10-10T01:10:00Z'),
-  },
-  {
-    sessionId: 2,
-    hostId: host.user_id,
-    questionSetId: 1,
-    joinCode: '527194',
-    status: 'WAITING',
-    timeLimit: 600,
-    startTime: null,
-    endTime: null,
-  },
-]);
+      {
+        sessionId: 1,
+        hostId: host.user_id,
+        questionSetId: 1,
+        joinCode: '418263',
+        status: 'CLOSED',
+        timeLimit: 600,
+        startTime: new Date('2026-10-10T01:00:00Z'),
+        endTime: new Date('2026-10-10T01:10:00Z'),
+      },
+      {
+        sessionId: 2,
+        hostId: host.user_id,
+        questionSetId: 1,
+        joinCode: '527194',
+        status: 'WAITING',
+        timeLimit: 600,
+        startTime: null,
+        endTime: null,
+      },
+    ]);
 
     // Four players: three completed, one left early.
     await queryInterface.bulkInsert('Player', [
@@ -145,6 +151,7 @@ module.exports = {
     // Players 1-3 answered all five questions.
     // Player 4 answered only two, representing an early exit.
     const answers = [];
+
     const answerSets = [
       { playerId: 1, count: 5 },
       { playerId: 2, count: 5 },
@@ -189,6 +196,7 @@ module.exports = {
       },
     ]);
 
+    // Reward objects.
     await queryInterface.bulkInsert('RewardObject', [
       {
         rewardId: 1,
@@ -209,6 +217,41 @@ module.exports = {
         chakraChange: -10,
       },
     ]);
+
+    // Synchronize auto-increment sequences after inserting explicit IDs.
+    await db.query(`
+      SELECT setval(
+        '"Player_playerId_seq"',
+        GREATEST(
+          COALESCE((SELECT MAX("playerId") FROM "Player"), 0) + 1,
+          1
+        ),
+        false
+      )
+    `);
+
+    await db.query(`
+      SELECT setval(
+        '"GameSession_sessionId_seq"',
+        GREATEST(
+          COALESCE((SELECT MAX("sessionId") FROM "GameSession"), 0) + 1,
+          1
+        ),
+        false
+      )
+    `);
+
+    await db.query(`
+        SELECT setval(
+          '"QuestionSet_questionSetId_seq"',
+          GREATEST(
+            COALESCE((SELECT MAX("questionSetId") FROM "QuestionSet"), 0) + 1,
+            1
+          ),
+          false
+        )
+      `);
+
   },
 
   async down(queryInterface) {
@@ -221,7 +264,9 @@ module.exports = {
     }, {});
 
     await queryInterface.bulkDelete('Answer', {
-      answerId: { [require('sequelize').Op.between]: [1, 17] },
+      answerId: {
+        [require('sequelize').Op.between]: [1, 17],
+      },
     }, {});
 
     await queryInterface.bulkDelete('Question', {

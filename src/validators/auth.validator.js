@@ -4,10 +4,11 @@ const { body } = require('express-validator');
 // Registration validation
 const registerRules = [
   body('school_id')
-    .isString().withMessage('School ID must be text.')
-    .bail()
-    .trim()
-    .matches(/^\d{8}$/).withMessage('School ID must contain exactly 8 digits.'),
+  .isString().withMessage('School ID must be text.')
+  .bail()
+  .trim()
+  .matches(/^(?:\d{8}|\d{4}-\d{4})$/)
+  .withMessage('School ID must be 8 digits, with an optional hyphen after the fourth digit.'),
 
   body('full_name')
     .isString().withMessage('Full name must be text.')

@@ -30,6 +30,16 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 
 ## M2 · The question bank
 
+- Dates worked: November 18, 2026 · Time spent: [confirm total hours]
+- Goal: Implement a complete question bank feature that allows hosts to manage questions and choices, search and organize questions, and upload question set cover images.
+- What I built: Added question bank endpoints with pagination, search, and sorting. Implemented nested question and choice management through `GET /question-sets/:id/questions`, `POST /question-sets/:id/questions`, `PATCH /question-sets/:id/questions/:questionId`, and `DELETE /question-sets/:id/questions/:questionId`. Added validation to require exactly one correct choice, automatically assign choice positions, and prevent changes to question sets already used by a game. Added the `QuestionChoice` model and database migration. Added `?include=questions` to retrieve a question set with its questions and choices. Implemented PNG/JPEG cover image uploads with file type and 1 MB size validation. Added demo question choices to the database seeder. Tested the endpoints using Postman.
+- Evidence: Branch `feature/question-bank` · Commits: `f52293d` — `feat: add question bank and cover image upload`; `c106f77` — `test: seed demo question choices`. Pull request: [Question Bank feature PR](https://github.com/devlou-rens/shinobi-quiz-battle-api/pull/5) (merged into `main`).
+- Problem I hit: The GitHub Actions checker failed because the `QuestionChoice` table had no seed rows. I also encountered an `fs is not defined` error when setting up the cover image upload middleware.
+- How I solved it: Created a new seeder that adds four choices for each of the five demo questions, then ran it and verified the inserted records in PostgreSQL. Fixed the upload middleware by importing the Node.js `fs` module. Retested successful image uploads, invalid file types, and oversized files.
+- Decision I made and why: Stored question choices in a separate `QuestionChoice` table instead of placing them directly inside the `Question` table. This keeps the database organized and allows each question to have multiple choices with their own positions. I also made question set editing unavailable once it has been used by a game to protect existing game content.
+- Changes to my design set: Added the `QuestionChoice` table and its relationship with `Question`. Added the nullable `coverImage` field to `QuestionSet`. Updated the question bank endpoint requirements to support pagination, search, sorting, nested question management, and cover image uploads.
+- What I would explain to a classmate: A question bank needs more than just storing questions. It should also manage choices, validate the correct answer, protect content from unauthorized users, and prevent changes that could affect existing games. Database migrations and seeders help keep the structure and sample data consistent.
+
 ## M3 · Gameplay
 
 ## M4 · Automated tests and server preparation

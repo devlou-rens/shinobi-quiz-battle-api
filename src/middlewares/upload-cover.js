@@ -3,6 +3,7 @@
 // The rules a validator cannot check, because the file is not JSON:
 //   only PNG or JPEG, at most 1 MB, and a file name WE choose (never the client's).
 const path = require('path');
+const fs = require('fs');
 const crypto = require('crypto');
 const multer = require('multer');
 const { badRequest, AppError } = require('../errors/app-error');
@@ -35,5 +36,15 @@ function uploadCover(req, res, next) {
     return next();
   });
 }
+
+const uploadDirectory = path.join(
+  __dirname,
+  '..',
+  '..',
+  'uploads',
+  'covers'
+);
+
+fs.mkdirSync(uploadDirectory, { recursive: true });
 
 module.exports = uploadCover;

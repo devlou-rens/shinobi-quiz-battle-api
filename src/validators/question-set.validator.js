@@ -1,4 +1,17 @@
 const { badRequest } = require('../errors/app-error');
+const { query } = require('express-validator');
+const { pageRules, sortRules } = require('./list.validator');
+
+// Validate optional pagination, sorting, and search parameters.
+const questionSetListRules = [
+  ...pageRules,
+  ...sortRules(['title', 'subject', 'questionSetId']),
+  query('search')
+    .optional()
+    .isString()
+    .withMessage('search must be text.')
+    .trim(),
+];
 
 function validateQuestionSetBody(req, res, next) {
   const { title, subject } = req.body || {};
@@ -56,6 +69,7 @@ function validateQuestionSetId(req, res, next) {
 }
 
 module.exports = {
+  questionSetListRules,
   validateQuestionSetBody,
   validateCreateQuestionSet,
   validateQuestionSetId,

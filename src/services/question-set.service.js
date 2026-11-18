@@ -2,13 +2,20 @@ const questionSetRepository = require('../repositories/question-set.repository')
 const { forbidden, notFound, badRequest } = require('../errors/app-error');
 
 // List question sets belonging to the logged-in host.
-async function listQuestionSets(hostId) {
-  return questionSetRepository.findAllByHost(hostId);
+async function listQuestionSets(hostId, queryOptions) {
+  return questionSetRepository.findAllByHost(hostId, queryOptions);
 }
 
 // Find a question set and check its ownership.
-async function getQuestionSet(questionSetId, hostId) {
-  const questionSet = await questionSetRepository.findById(questionSetId);
+async function getQuestionSet(
+  questionSetId,
+  hostId,
+  options = {}
+) {
+  const questionSet = await questionSetRepository.findById(
+    questionSetId,
+    options
+  );
 
   if (!questionSet) {
     throw notFound(
@@ -22,6 +29,15 @@ async function getQuestionSet(questionSetId, hostId) {
   }
 
   return questionSet;
+}
+
+// Upload a cover image for a question set owned by the logged-in host.
+async function uploadQuestionSetCover(questionSetId, coverImage, hostId) {
+  const questionSet = await getQuestionSet(questionSetId, hostId);
+
+  return questionSetRepository.update(questionSet, {
+    coverImage,
+  });
 }
 
 // Create a question set for the logged-in host.
@@ -84,5 +100,6 @@ module.exports = {
   getQuestionSet,
   createQuestionSet,
   updateQuestionSet,
+  uploadQuestionSetCover,
   deleteQuestionSet,
 };

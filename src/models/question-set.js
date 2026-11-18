@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.STRING(100),
         allowNull: false,
       },
+      coverImage: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       tableName: 'QuestionSet',

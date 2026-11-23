@@ -48,7 +48,39 @@ async function getSessionPlayers(req, res, next) {
   }
 }
 
+
+async function getLeaderboard(req, res, next) {
+  try {
+    const joinCode = req.params.code;
+
+    if (!/^\d{6}$/.test(joinCode)) {
+      const error = new Error('Invalid join code format.');
+      error.status = 400;
+      throw error;
+    }
+
+    const limit = Number(req.query.limit || 10);
+
+    if (!Number.isInteger(limit) || limit < 1 || limit > 100) {
+      const error = new Error('limit must be between 1 and 100.');
+      error.status = 400;
+      throw error;
+    }
+
+    const players = await playerService.getLeaderboard(
+      joinCode,
+      limit
+    );
+
+    return res.status(200).json({ leaderboard: players });
+  } catch (error) {
+    next(error);
+  }
+}
+
+
 module.exports = {
   joinSession,
   getSessionPlayers,
+  getLeaderboard,
 };

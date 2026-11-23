@@ -7,7 +7,7 @@ module.exports = {
     // Database connection.
     const db = queryInterface.sequelize;
 
-    // Find the host account created by demo-users.
+    // Find the host and player accounts created by demo-users.
     const [[host]] = await db.query(`
       SELECT user_id
       FROM users
@@ -44,7 +44,7 @@ module.exports = {
       },
     ]);
 
-    // One finished game.
+    // One finished game and one waiting game.
     await queryInterface.bulkInsert('GameSession', [
       {
         sessionId: 1,
@@ -149,7 +149,7 @@ module.exports = {
     ]);
 
     // Players 1-3 answered all five questions.
-    // Player 4 answered only two, representing an early exit.
+    // Player 4 answered only two questions.
     const answers = [];
 
     const answerSets = [
@@ -173,6 +173,34 @@ module.exports = {
     }
 
     await queryInterface.bulkInsert('Answer', answers);
+
+    // Synchronize Answer auto-increment sequence.
+    await db.query(`
+      SELECT setval(
+        pg_get_serial_sequence('public."Answer"', 'answerId'),
+        GREATEST(
+          COALESCE((SELECT MAX("answerId") FROM public."Answer"), 0) + 1,
+          1
+        ),
+        false
+      )
+    `);
+
+    // Seed completed question progress for demo players.
+    const questionProgress = [];
+
+    for (const item of answerSets) {
+      for (let questionId = 1; questionId <= item.count; questionId++) {
+        questionProgress.push({
+          playerId: item.playerId,
+          questionId,
+          questionStartedAt: new Date('2026-10-10T01:00:30Z'),
+          answeredAt: new Date('2026-10-10T01:01:00Z'),
+        });
+      }
+    }
+
+    await queryInterface.bulkInsert('PlayerQuestion', questionProgress);
 
     // Reward rounds for the first three players.
     await queryInterface.bulkInsert('RewardRound', [
@@ -219,6 +247,8 @@ module.exports = {
     ]);
 
     // Synchronize auto-increment sequences after inserting explicit IDs.
+
+    // Player sequence.
     await db.query(`
       SELECT setval(
         '"Player_playerId_seq"',
@@ -230,6 +260,7 @@ module.exports = {
       )
     `);
 
+    // GameSession sequence.
     await db.query(`
       SELECT setval(
         '"GameSession_sessionId_seq"',
@@ -241,48 +272,106 @@ module.exports = {
       )
     `);
 
+    // QuestionSet sequence.
     await db.query(`
-        SELECT setval(
-          '"QuestionSet_questionSetId_seq"',
-          GREATEST(
-            COALESCE((SELECT MAX("questionSetId") FROM "QuestionSet"), 0) + 1,
-            1
-          ),
-          false
-        )
-      `);
+      SELECT setval(
+        '"QuestionSet_questionSetId_seq"',
+        GREATEST(
+          COALESCE((SELECT MAX("questionSetId") FROM "QuestionSet"), 0) + 1,
+          1
+        ),
+        false
+      )
+    `);
 
+    // Question sequence.
+    await db.query(`
+      SELECT setval(
+        pg_get_serial_sequence('public."Question"', 'questionId'),
+        GREATEST(
+          COALESCE((SELECT MAX("questionId") FROM public."Question"), 0) + 1,
+          1
+        ),
+        false
+      )
+    `);
+
+    // RewardRound sequence.
+    await db.query(`
+      SELECT setval(
+        pg_get_serial_sequence('public."RewardRound"', 'rewardRoundId'),
+        GREATEST(
+          COALESCE((SELECT MAX("rewardRoundId") FROM public."RewardRound"), 0) + 1,
+          1
+        ),
+        false
+      )
+    `);
+
+    // RewardObject sequence.
+    await db.query(`
+      SELECT setval(
+        pg_get_serial_sequence('public."RewardObject"', 'rewardId'),
+        GREATEST(
+          COALESCE((SELECT MAX("rewardId") FROM public."RewardObject"), 0) + 1,
+          1
+        ),
+        false
+      )
+    `);
   },
 
   async down(queryInterface) {
-    await queryInterface.bulkDelete('RewardObject', {
-      rewardRoundId: [1, 2, 3],
-    }, {});
+    await queryInterface.bulkDelete(
+      'RewardObject',
+      { rewardRoundId: [1, 2, 3] },
+      {}
+    );
 
-    await queryInterface.bulkDelete('RewardRound', {
-      rewardRoundId: [1, 2, 3],
-    }, {});
+    await queryInterface.bulkDelete(
+      'RewardRound',
+      { rewardRoundId: [1, 2, 3] },
+      {}
+    );
 
-    await queryInterface.bulkDelete('Answer', {
-      answerId: {
-        [require('sequelize').Op.between]: [1, 17],
+    await queryInterface.bulkDelete(
+      'PlayerQuestion',
+      { playerId: [1, 2, 3, 4] },
+      {}
+    );
+
+    await queryInterface.bulkDelete(
+      'Answer',
+      {
+        answerId: {
+          [require('sequelize').Op.between]: [1, 17],
+        },
       },
-    }, {});
+      {}
+    );
 
-    await queryInterface.bulkDelete('Question', {
-      questionId: [1, 2, 3, 4, 5],
-    }, {});
+    await queryInterface.bulkDelete(
+      'Question',
+      { questionId: [1, 2, 3, 4, 5] },
+      {}
+    );
 
-    await queryInterface.bulkDelete('Player', {
-      playerId: [1, 2, 3, 4],
-    }, {});
+    await queryInterface.bulkDelete(
+      'Player',
+      { playerId: [1, 2, 3, 4] },
+      {}
+    );
 
-    await queryInterface.bulkDelete('GameSession', {
-      sessionId: 1,
-    }, {});
+    await queryInterface.bulkDelete(
+      'GameSession',
+      { sessionId: 1 },
+      {}
+    );
 
-    await queryInterface.bulkDelete('QuestionSet', {
-      questionSetId: 1,
-    }, {});
+    await queryInterface.bulkDelete(
+      'QuestionSet',
+      { questionSetId: 1 },
+      {}
+    );
   },
 };

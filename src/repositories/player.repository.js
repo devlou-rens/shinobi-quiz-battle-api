@@ -33,9 +33,25 @@ function findPlayersBySession(sessionId) {
   });
 }
 
+
+// Get players ranked by their Chakra points.
+function findLeaderboard(sessionId, limit = 10) {
+  return Player.findAll({
+    where: { sessionId },
+    attributes: ['playerId', 'nickname', 'chakra'],
+    order: [
+      ['chakra', 'DESC'],
+      ['playerId', 'ASC'],
+    ],
+    limit,
+  });
+}
+
+
 module.exports = {
   findSeat,
   countBySession,
   createPlayer,
   findPlayersBySession,
+  findLeaderboard,
 };

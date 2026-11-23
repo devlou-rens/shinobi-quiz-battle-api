@@ -12,10 +12,26 @@ const GENERIC_CONFLICT = {
 function errorHandler(err, req, res, next) {
   // 1. A database constraint said no: translate it with the team's map.
   const constraint = constraintOf(err);
-  if (constraint) {
-    const known = constraintMap[constraint] || GENERIC_CONFLICT;
-    return res.status(known.status).json({ error: { code: known.code, message: known.message } });
-  }
+
+if (constraint) {
+  console.error('DATABASE CONSTRAINT ERROR:', {
+    constraint,
+    errorName: err.name,
+    parentConstraint: err.parent?.constraint,
+    parentDetail: err.parent?.detail,
+    parentMessage: err.parent?.message,
+    fields: err.fields,
+  });
+
+  const known = constraintMap[constraint] || GENERIC_CONFLICT;
+
+  return res.status(known.status).json({
+    error: {
+      code: known.code,
+      message: known.message,
+    },
+  });
+}
 
   // 2. The request body was not valid JSON (thrown by express.json()).
   if (err.type === 'entity.parse.failed') {

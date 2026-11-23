@@ -33,6 +33,14 @@ module.exports = (sequelize, DataTypes) =>
         allowNull: true,
       },
       endTime: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      },
+      current_position: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      question_started_at: {
         type: DataTypes.DATE,
         allowNull: true,
       },

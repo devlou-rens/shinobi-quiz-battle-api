@@ -87,7 +87,28 @@ async function getSessionPlayers(joinCode) {
   return playerRepository.findPlayersBySession(session.sessionId);
 }
 
+
+async function getLeaderboard(joinCode, limit = 10) {
+  const session = await GameSession.findOne({
+    where: { joinCode },
+  });
+
+  if (!session) {
+    const error = new Error('Session not found.');
+    error.status = 404;
+    throw error;
+  }
+
+  const players = await playerRepository.findLeaderboard(
+    session.sessionId,
+    limit
+  );
+
+  return players;
+}
+
 module.exports = {
   joinSession,
   getSessionPlayers,
+  getLeaderboard,
 };

@@ -42,16 +42,31 @@ async function getSession(req, res, next) {
   }
 }
 
+async function getCurrentQuestion(req, res, next) {
+  try {
+    const question = await sessionService.getCurrentQuestion(
+      req.params.code,
+      req.user.user_id
+    );
+
+    return res.status(200).json({ question });
+  } catch (error) {
+    next(error);
+  }
+}
 
 async function updateSessionStatus(req, res, next) {
   try {
     const session = await sessionService.updateSessionStatus(
       req.params.code,
-      req.body.status
+      {
+        status: req.body.status,
+        current_position: req.body.current_position,
+      }
     );
 
     return res.status(200).json({
-      message: 'Session status updated successfully.',
+      message: 'Session updated successfully.',
       session,
     });
   } catch (error) {
@@ -62,5 +77,6 @@ async function updateSessionStatus(req, res, next) {
 module.exports = {
   createSession,
   getSession,
+  getCurrentQuestion,
   updateSessionStatus,
 };

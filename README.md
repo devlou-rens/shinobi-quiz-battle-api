@@ -1,5 +1,15 @@
 # Shinobi Quiz Battle API
 
+## Deploying to Render
+The Shinobi Quiz Battle API is deployed using Render Blueprint.
+
+## Live API
+
+Live API: https://shinobi-quiz-battle-devlou-rens.onrender.com/api/v1
+[![GitHub Actions](https://github.com/devlou-rens/shinobi-quiz-battle-api/actions/workflows/check.yml/badge.svg)](https://github.com/devlou-rens/shinobi-quiz-battle-api/actions/workflows/check.yml)
+
+**Swagger API Documentation:** https://shinobi-quiz-battle-devlou-rens.onrender.com/api/v1/docs/
+
 Backend API for **Shinobi Quiz Battle**, a tournament game for the SorSU Bulan Campus library.
 CS 313 Software Engineering 1, A.Y. 2026–2027.
 

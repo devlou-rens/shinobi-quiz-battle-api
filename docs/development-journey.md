@@ -71,6 +71,22 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 
 ## M5 · API documentation and deployment
 
+- **Dates worked:** November 24, 2026 · **Completion time:** 3hrs
+- **Goal:** Document the Shinobi Quiz Battle API and make the deployed Render API accessible with working documentation and a verified live health endpoint.
+- **What I built:** Added the live Render API URL, GitHub Actions status badge, and Swagger API documentation link to the README. Documented the deployment information so users can find the live API and its endpoints. Verified that the OpenAPI specification is available through `/openapi.json` and that Swagger UI is accessible through `/docs`. Checked the deployed API health and confirmed that its database connection is up.
+- **Evidence:**
+  - API documentation branch: `feature/api-docs`.
+  - Deployment branch: `feature/deploy`.
+  - The `npm run check` command passed the M and N requirements:
+    - M: OpenAPI 3 document available, 25 documented operations, and Swagger UI working.
+    - N: README identifies the live API, the deployed `/health` endpoint returns database status `up`, and the live build identifies developer `devlou-rens`.
+  - Automated checks also confirmed 118 Jest tests passing in 21 test files.
+- **Problem I hit:** The automatic checker initially failed the live API README requirement even though the URL was present. The checker did not recognize the URL because the `Live API:` label was formatted in bold Markdown.
+- **How I solved it:** Changed the README line to plain text: `Live API: https://shinobi-quiz-battle-devlou-rens.onrender.com/api/v1`. Ran `npm run check` again and confirmed that both M and N passed.
+- **Decision I made and why:** Added the live API URL and documentation links near the beginning of the README so users can easily find them. Used the OpenAPI specification and Swagger UI to make the API easier to understand and test.
+- **Changes to my design set:** Added API documentation and deployment information to the project README. The API now has an accessible OpenAPI specification and Swagger UI, along with a verified live Render deployment.
+- **What I would explain to a classmate:** OpenAPI describes an API's endpoints, request formats, and responses. Swagger UI makes that documentation interactive, allowing developers to inspect and test endpoints. A live health check is also important because it helps confirm that the deployed server is running and connected to its database.
+
 ## M6 · The SE1 portfolio and the release
 
 ## M7 · The Test Report

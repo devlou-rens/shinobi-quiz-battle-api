@@ -1,20 +1,33 @@
-// Empties the database completely: every table, and the two lists that
-// remember which migrations and seeders have run. Used by "npm run db:reset".
-// It works while the API is running, and whatever rows the API has created.
+
+// Empties the database completely.
+// This script is allowed to run ONLY on the dedicated test database.
+
 const { sequelize } = require('../src/models');
 const env = require('../src/config/env');
 
 async function main() {
-  if (env.nodeEnv === 'production') {
-    throw new Error('db:reset is for development only.');
+  const expectedDatabase = 'shinobi_quiz_battle_test';
+
+  if (env.nodeEnv !== 'test') {
+    throw new Error('DB wipe is allowed only in the test environment.');
   }
+
+  if (env.db.name !== expectedDatabase) {
+    throw new Error(
+      `Unsafe database target: ${env.db.name}. Expected ${expectedDatabase}.`
+    );
+  }
+
   await sequelize.query('DROP SCHEMA public CASCADE');
   await sequelize.query('CREATE SCHEMA public');
-  console.log(`Database ${env.db.name} is empty.`);
+
+  console.log(`Test database ${env.db.name} is empty.`);
+
   await sequelize.close();
 }
 
-main().catch((error) => {
+main().catch(async (error) => {
   console.error('DB WIPE FAILED:', error.message);
+  await sequelize.close().catch(() => {});
   process.exit(1);
 });

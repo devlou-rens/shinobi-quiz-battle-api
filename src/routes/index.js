@@ -10,6 +10,8 @@ router.use('/game-info', require('./game-info.routes'));
 router.use('/results', require('./results.routes'));
 router.use('/sessions', require('./session.routes'));
 
+// API documentation.
+router.use('/', require('./docs.routes'));
 
 // From here on, req.user says who is calling (or null).
 router.use(currentUser);

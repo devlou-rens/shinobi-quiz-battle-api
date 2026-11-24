@@ -35,12 +35,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/login",
+              "raw": "{{baseUrl}}/auth/login",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -77,12 +77,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/login",
+              "raw": "{{baseUrl}}/auth/login",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -119,12 +119,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/login",
+              "raw": "{{baseUrl}}/auth/login",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -170,12 +170,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/login",
+              "raw": "{{baseUrl}}/auth/login",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -221,12 +221,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/login",
+              "raw": "{{baseUrl}}/auth/login",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -297,12 +297,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions",
+              "raw": "{{baseUrl}}/sessions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -354,12 +354,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions",
+              "raw": "{{baseUrl}}/sessions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -400,12 +400,12 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -449,12 +449,12 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/12345",
+              "raw": "{{baseUrl}}/sessions/12345",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -498,12 +498,12 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/999999",
+              "raw": "{{baseUrl}}/sessions/999999",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -566,12 +566,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/players",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/players",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -635,12 +635,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/players",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/players",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -694,12 +694,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/players",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/players",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -753,12 +753,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/players",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/players",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -809,12 +809,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -867,12 +867,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/players",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/players",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -926,12 +926,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -976,11 +976,19 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/question",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/question",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "question"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "question"
+              ]
             }
           },
           "response": []
@@ -1013,18 +1021,35 @@
               ]
             },
             "method": "POST",
-            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"question_id\": {{activeQuestionId}},\n  \"choice_id\": {{activeChoiceId}}\n}",
-              "options": {"raw": {"language": "json"}}
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/answers",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/answers",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "answers"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "answers"
+              ]
             }
           },
           "response": []
@@ -1052,16 +1077,30 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [{"key": "token", "value": "{{playerToken}}", "type": "string"}]
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
             },
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/question",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/question",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "question"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "question"
+              ]
             }
           },
           "response": []
@@ -1085,21 +1124,44 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [{"key": "token", "value": "{{playerToken}}", "type": "string"}]
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
             },
             "method": "POST",
-            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"question_id\": {{activeQuestionId}},\n  \"choice_id\": {{activeChoiceId}}\n}",
-              "options": {"raw": {"language": "json"}}
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/answers",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/answers",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "answers"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "answers"
+              ]
             }
           },
           "response": []
@@ -1127,16 +1189,30 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [{"key": "token", "value": "{{playerToken}}", "type": "string"}]
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
             },
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/question",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/question",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "question"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "question"
+              ]
             }
           },
           "response": []
@@ -1160,21 +1236,44 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [{"key": "token", "value": "{{playerToken}}", "type": "string"}]
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
             },
             "method": "POST",
-            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"question_id\": {{activeQuestionId}},\n  \"choice_id\": {{activeChoiceId}}\n}",
-              "options": {"raw": {"language": "json"}}
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/answers",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/answers",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "answers"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "answers"
+              ]
             }
           },
           "response": []
@@ -1202,16 +1301,30 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [{"key": "token", "value": "{{playerToken}}", "type": "string"}]
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
             },
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/question",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/question",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "question"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "question"
+              ]
             }
           },
           "response": []
@@ -1235,21 +1348,44 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [{"key": "token", "value": "{{playerToken}}", "type": "string"}]
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
             },
             "method": "POST",
-            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"question_id\": {{activeQuestionId}},\n  \"choice_id\": {{activeChoiceId}}\n}",
-              "options": {"raw": {"language": "json"}}
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/answers",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/answers",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "answers"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "answers"
+              ]
             }
           },
           "response": []
@@ -1277,16 +1413,30 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [{"key": "token", "value": "{{playerToken}}", "type": "string"}]
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
             },
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/question",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/question",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "question"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "question"
+              ]
             }
           },
           "response": []
@@ -1310,21 +1460,44 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [{"key": "token", "value": "{{playerToken}}", "type": "string"}]
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
             },
             "method": "POST",
-            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"question_id\": {{activeQuestionId}},\n  \"choice_id\": {{activeChoiceId}}\n}",
-              "options": {"raw": {"language": "json"}}
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}/answers",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}/answers",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}", "answers"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}",
+                "answers"
+              ]
             }
           },
           "response": []
@@ -1348,21 +1521,43 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [{"key": "token", "value": "{{hostToken}}", "type": "string"}]
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{hostToken}}",
+                  "type": "string"
+                }
+              ]
             },
             "method": "PATCH",
-            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"status\": \"CLOSED\"\n}",
-              "options": {"raw": {"language": "json"}}
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/{{sessionCode}}",
+              "raw": "{{baseUrl}}/sessions/{{sessionCode}}",
               "protocol": "http",
-              "host": ["localhost"],
-              "port": "3001",
-              "path": ["api", "v1", "sessions", "{{sessionCode}}"]
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{sessionCode}}"
+              ]
             }
           },
           "response": []
@@ -1375,6 +1570,17 @@
         {
           "name": "01 - Register always creates PLAYER",
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const suffix = String(Date.now()).slice(-8);",
+                  "pm.collectionVariables.set(\"registeredSchoolId\", suffix);",
+                  "pm.collectionVariables.set(\"registeredEmail\", \"postmanplayer\" + suffix + \"@example.test\");"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1390,7 +1596,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"school_id\": \"99999881\",\r\n  \"full_name\": \"Postman Test Player\",\r\n  \"email\": \"postmanplayer01@example.test\",\r\n  \"password\": \"PlayerPass123\",\r\n  \"role\": \"ADMIN\"\r\n}",
+              "raw": "{\r\n  \"school_id\": \"{{registeredSchoolId}}\",\r\n  \"full_name\": \"Postman Test Player\",\r\n  \"email\": \"{{registeredEmail}}\",\r\n  \"password\": \"PlayerPass123\",\r\n  \"role\": \"ADMIN\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1398,12 +1604,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/register",
+              "raw": "{{baseUrl}}/auth/register",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1432,7 +1638,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"school_id\": \"99999881\",\r\n  \"full_name\": \"Duplicate School ID Test\",\r\n  \"email\": \"duplicate-schoolid@example.test\",\r\n  \"password\": \"PlayerPass123\"\r\n}",
+              "raw": "{\r\n  \"school_id\": \"{{registeredSchoolId}}\",\r\n  \"full_name\": \"Duplicate School ID Test\",\r\n  \"email\": \"duplicate-schoolid@example.test\",\r\n  \"password\": \"PlayerPass123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1440,12 +1646,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/register",
+              "raw": "{{baseUrl}}/auth/register",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1474,7 +1680,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"school_id\": \"99999882\",\r\n  \"full_name\": \"Duplicate Email Test\",\r\n  \"email\": \"postmanplayer01@example.test\",\r\n  \"password\": \"PlayerPass123\"\r\n}",
+              "raw": "{\r\n  \"school_id\": \"99999882\",\r\n  \"full_name\": \"Duplicate Email Test\",\r\n  \"email\": \"{{registeredEmail}}\",\r\n  \"password\": \"PlayerPass123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1482,12 +1688,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/register",
+              "raw": "{{baseUrl}}/auth/register",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1524,12 +1730,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/register",
+              "raw": "{{baseUrl}}/auth/register",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1566,12 +1772,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/login",
+              "raw": "{{baseUrl}}/auth/login",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1613,12 +1819,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/login",
+              "raw": "{{baseUrl}}/auth/login",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1656,12 +1862,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/me",
+              "raw": "{{baseUrl}}/auth/me",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1689,12 +1895,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/me",
+              "raw": "{{baseUrl}}/auth/me",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1732,12 +1938,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/me",
+              "raw": "{{baseUrl}}/auth/me",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1770,12 +1976,12 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:3001/api/v1/auth/me",
+              "raw": "{{baseUrl}}/auth/me",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1813,12 +2019,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/users",
+              "raw": "{{baseUrl}}/users",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1855,12 +2061,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/users",
+              "raw": "{{baseUrl}}/users",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1906,12 +2112,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/users/11/role",
+              "raw": "{{baseUrl}}/users/11/role",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -1959,12 +2165,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/users/10/role",
+              "raw": "{{baseUrl}}/users/10/role",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2015,12 +2221,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/users/11/role",
+              "raw": "{{baseUrl}}/users/11/role",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2053,12 +2259,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets?page=1&limit=5",
+              "raw": "{{baseUrl}}/question-sets?page=1&limit=5",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2094,12 +2300,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets?page=1&limit=5&search=",
+              "raw": "{{baseUrl}}/question-sets?page=1&limit=5&search=",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2139,12 +2345,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets?sort=password_hash",
+              "raw": "{{baseUrl}}/question-sets?sort=password_hash",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2176,12 +2382,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets?sort=title&order=desc",
+              "raw": "{{baseUrl}}/question-sets?sort=title&order=desc",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2217,12 +2423,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2?include=questions",
+              "raw": "{{baseUrl}}/question-sets/2?include=questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2255,12 +2461,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions",
+              "raw": "{{baseUrl}}/question-sets/2/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2297,12 +2503,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions",
+              "raw": "{{baseUrl}}/question-sets/2/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2339,12 +2545,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions",
+              "raw": "{{baseUrl}}/question-sets/2/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2392,12 +2598,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions/6",
+              "raw": "{{baseUrl}}/question-sets/2/questions/6",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2426,12 +2632,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions",
+              "raw": "{{baseUrl}}/question-sets/2/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2459,12 +2665,12 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions/6",
+              "raw": "{{baseUrl}}/question-sets/2/questions/6",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2493,12 +2699,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions",
+              "raw": "{{baseUrl}}/question-sets/2/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2526,12 +2732,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions",
+              "raw": "{{baseUrl}}/question-sets/2/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2568,12 +2774,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions",
+              "raw": "{{baseUrl}}/question-sets/2/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2610,12 +2816,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/1/questions",
+              "raw": "{{baseUrl}}/question-sets/1/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2643,12 +2849,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions?page=1&limit=5",
+              "raw": "{{baseUrl}}/question-sets/2/questions?page=1&limit=5",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2686,12 +2892,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions?search=",
+              "raw": "{{baseUrl}}/question-sets/2/questions?search=",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2725,12 +2931,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions?sort=password",
+              "raw": "{{baseUrl}}/question-sets/2/questions?sort=password",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2764,12 +2970,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions?sort=text&order=desc",
+              "raw": "{{baseUrl}}/question-sets/2/questions?sort=text&order=desc",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2816,12 +3022,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions",
+              "raw": "{{baseUrl}}/question-sets/2/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2849,12 +3055,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions?search=Naruto",
+              "raw": "{{baseUrl}}/question-sets/2/questions?search=Naruto",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2888,12 +3094,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/questions?page=1&limit=1",
+              "raw": "{{baseUrl}}/question-sets/2/questions?page=1&limit=1",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2931,12 +3137,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2?include=questions",
+              "raw": "{{baseUrl}}/question-sets/2?include=questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -2986,12 +3192,12 @@
               ]
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/cover",
+              "raw": "{{baseUrl}}/question-sets/2/cover",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -3019,13 +3225,15 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/uploads/covers/set-2-5f4a1a4a-9fa1-4eda-b02f-de1e0e8ee3f5.jpg",
+              "raw": "{{baseUrl}}/uploads/covers/set-2-5f4a1a4a-9fa1-4eda-b02f-de1e0e8ee3f5.jpg",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
+                "api",
+                "v1",
                 "uploads",
                 "covers",
                 "set-2-5f4a1a4a-9fa1-4eda-b02f-de1e0e8ee3f5.jpg"
@@ -3062,12 +3270,12 @@
               ]
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/cover",
+              "raw": "{{baseUrl}}/question-sets/2/cover",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -3107,12 +3315,12 @@
               ]
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/2/cover",
+              "raw": "{{baseUrl}}/question-sets/2/cover",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -3130,7 +3338,152 @@
       "name": "Play a whole game",
       "item": [
         {
+          "name": "Gameplay HOST login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Gameplay HOST login returns 200\", function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "if (response.token) pm.collectionVariables.set(\"hostToken\", response.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"24179444\",\r\n  \"password\": \"shinobi123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Gameplay PLAYER login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Gameplay PLAYER login returns 200\", function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "if (response.token) pm.collectionVariables.set(\"playerToken\", response.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"24179723\",\r\n  \"password\": \"shinobi123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Gameplay SECOND PLAYER login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Gameplay SECOND PLAYER login returns 200\", function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "if (response.token) pm.collectionVariables.set(\"player2Token\", response.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"school_id\": \"24179795\",\r\n  \"password\": \"shinobi123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "question set",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Gameplay question set returns 201\", function () { pm.response.to.have.status(201); });",
+                  "const response = pm.response.json();",
+                  "if (response.data && response.data.questionSetId) pm.collectionVariables.set(\"playSetId\", String(response.data.questionSetId));"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
@@ -3154,12 +3507,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets",
+              "raw": "{{baseUrl}}/question-sets",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -3171,6 +3524,17 @@
         },
         {
           "name": "Create your first question",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"First gameplay question returns 201\", function () { pm.response.to.have.status(201); });"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
@@ -3194,17 +3558,17 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/5/questions",
+              "raw": "{{baseUrl}}/question-sets/{{playSetId}}/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "question-sets",
-                "5",
+                "{{playSetId}}",
                 "questions"
               ]
             }
@@ -3213,6 +3577,17 @@
         },
         {
           "name": "Add a second question",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Second gameplay question returns 201\", function () { pm.response.to.have.status(201); });"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
@@ -3236,17 +3611,17 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/question-sets/3/questions",
+              "raw": "{{baseUrl}}/question-sets/{{playSetId}}/questions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "question-sets",
-                "3",
+                "{{playSetId}}",
                 "questions"
               ]
             }
@@ -3254,178 +3629,21 @@
           "response": []
         },
         {
-          "name": "Create Sessions",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{hostToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"questionSetId\": 3,\r\n  \"timeLimit\": 20\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3001/api/v1/sessions",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3001",
-              "path": [
-                "api",
-                "v1",
-                "sessions"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Start the game",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{hostToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"current_position\": 4\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/907668",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3001",
-              "path": [
-                "api",
-                "v1",
-                "sessions",
-                "907668"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get the current question",
-          "request": {
-            "auth": {
-              "type": "bearer"
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/106842/question",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3001",
-              "path": [
-                "api",
-                "v1",
-                "sessions",
-                "106842",
-                "question"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Verify question advancement",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{hostToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"current_position\": 2\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/106842",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3001",
-              "path": [
-                "api",
-                "v1",
-                "sessions",
-                "106842"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Verify Question 2",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/106842/question",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3001",
-              "path": [
-                "api",
-                "v1",
-                "sessions",
-                "106842",
-                "question"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "Create a fresh gameplay session",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Fresh gameplay session returns 201\", function () { pm.response.to.have.status(201); });",
+                  "const response = pm.response.json();",
+                  "const code = response.session && (response.session.joinCode || response.session.join_code);",
+                  "if (code) pm.collectionVariables.set(\"playSessionCode\", String(code));"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
@@ -3441,7 +3659,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"questionSetId\": 3,\r\n  \"timeLimit\": 600\r\n}",
+              "raw": "{\r\n  \"questionSetId\": {{playSetId}},\r\n  \"timeLimit\": 600\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3449,12 +3667,12 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions",
+              "raw": "{{baseUrl}}/sessions",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -3489,17 +3707,17 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/654603/players",
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/players",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "sessions",
-                "654603",
+                "{{playSessionCode}}",
                 "players"
               ]
             }
@@ -3531,17 +3749,17 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/782995/players",
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/players",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "sessions",
-                "782995",
+                "{{playSessionCode}}",
                 "players"
               ]
             }
@@ -3573,17 +3791,17 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/654603",
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "sessions",
-                "654603"
+                "{{playSessionCode}}"
               ]
             }
           },
@@ -3591,6 +3809,24 @@
         },
         {
           "name": "Test the current question",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Current question returns 200\", function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "const question = response.question;",
+                  "if (question) {",
+                  "  pm.collectionVariables.set(\"playQuestionId\", String(question.questionId));",
+                  "  const choice = (question.choices || []).find((item) => [\"JavaScript\", \"npm install\"].includes(item.choiceText));",
+                  "  if (choice) pm.collectionVariables.set(\"playChoiceId\", String(choice.choiceId));",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
@@ -3605,17 +3841,17 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/654603/question",
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/question",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "sessions",
-                "654603",
+                "{{playSessionCode}}",
                 "question"
               ]
             }
@@ -3639,7 +3875,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"question_id\": 9,\r\n  \"choice_id\": 35\r\n}",
+              "raw": "{\r\n  \"question_id\": {{playQuestionId}},\r\n  \"choice_id\": {{playChoiceId}}\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3647,17 +3883,110 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/654603/answers",
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/answers",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "sessions",
-                "654603",
+                "{{playSessionCode}}",
+                "answers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Player One's second question",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Player One gets a second question\", function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "const question = response.question;",
+                  "if (question) {",
+                  "  pm.collectionVariables.set(\"playQuestionId\", String(question.questionId));",
+                  "  const choice = (question.choices || []).find((item) => [\"JavaScript\", \"npm install\"].includes(item.choiceText));",
+                  "  if (choice) pm.collectionVariables.set(\"playChoiceId\", String(choice.choiceId));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/question",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{playSessionCode}}",
+                "question"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Player One's second answer",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{playerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"question_id\": {{playQuestionId}},\r\n  \"choice_id\": {{playChoiceId}}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/answers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{playSessionCode}}",
                 "answers"
               ]
             }
@@ -3666,6 +3995,77 @@
         },
         {
           "name": "Test Player Two",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Second unanswered question returns 200\", function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "const question = response.question;",
+                  "if (question) {",
+                  "  pm.collectionVariables.set(\"playQuestionId\", String(question.questionId));",
+                  "  const choice = (question.choices || []).find((item) => [\"JavaScript\", \"npm install\"].includes(item.choiceText));",
+                  "  if (choice) pm.collectionVariables.set(\"playChoiceId\", String(choice.choiceId));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{player2Token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/question",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{playSessionCode}}",
+                "question"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submit the second correct answer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Second answer returns 201\", function () { pm.response.to.have.status(201); });"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
@@ -3681,7 +4081,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"question_id\": 8,\r\n  \"choice_id\": 31\r\n}",
+              "raw": "{\r\n  \"question_id\": {{playQuestionId}},\r\n  \"choice_id\": {{playChoiceId}}\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3689,17 +4089,17 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/870905/answers",
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/answers",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "sessions",
-                "870905",
+                "{{playSessionCode}}",
                 "answers"
               ]
             }
@@ -3707,23 +4107,85 @@
           "response": []
         },
         {
-          "name": "Test the expired question endpoint",
+          "name": "Get Player Two's remaining question",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Player Two gets a remaining question\", function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "const question = response.question;",
+                  "if (question) {",
+                  "  pm.collectionVariables.set(\"playQuestionId\", String(question.questionId));",
+                  "  const choice = (question.choices || []).find((item) => [\"JavaScript\", \"npm install\"].includes(item.choiceText));",
+                  "  if (choice) pm.collectionVariables.set(\"playChoiceId\", String(choice.choiceId));",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "bearer",
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{playerToken}}",
+                  "value": "{{player2Token}}",
                   "type": "string"
                 }
               ]
             },
             "method": "GET",
             "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/question",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{playSessionCode}}",
+                "question"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Player Two's remaining answer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Player Two remaining answer returns 201\", function () { pm.response.to.have.status(201); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{player2Token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"user\": {\r\n    \"user_id\": 7\r\n  }\r\n}\r\n",
+              "raw": "{\r\n  \"question_id\": {{playQuestionId}},\r\n  \"choice_id\": {{playChoiceId}}\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3731,18 +4193,73 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/782995/question",
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/answers",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "sessions",
-                "782995",
-                "question"
+                "{{playSessionCode}}",
+                "answers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Close the gameplay session",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Closing gameplay session returns 200\", function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "if (response.session) pm.expect(response.session.status).to.eql(\"CLOSED\");",
+                  "pm.collectionVariables.set(\"gameEndedSessionCode\", pm.collectionVariables.get(\"playSessionCode\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{hostToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"CLOSED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3099",
+              "path": [
+                "api",
+                "v1",
+                "sessions",
+                "{{playSessionCode}}"
               ]
             }
           },
@@ -3754,17 +4271,17 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3001/api/v1/sessions/654603/leaderboard?limit=10",
+              "raw": "{{baseUrl}}/sessions/{{playSessionCode}}/leaderboard?limit=10",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
                 "sessions",
-                "654603",
+                "{{playSessionCode}}",
                 "leaderboard"
               ],
               "query": [
@@ -3779,6 +4296,22 @@
         },
         {
           "name": "Test the finished-game results endpoin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Finished-game results returns 200\", function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "const endedCode = pm.collectionVariables.get(\"gameEndedSessionCode\") || pm.collectionVariables.get(\"playSessionCode\");",
+                  "const game = (response.results || []).find((item) => item.session_code === endedCode);",
+                  "pm.test(\"Played game appears in results\", function () { pm.expect(game).to.not.be.undefined; });",
+                  "pm.test(\"A player completed the played game\", function () { pm.expect(game && game.players.some((player) => player.completed)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "GET",
             "header": [
@@ -3788,12 +4321,12 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:3001/api/v1/results",
+              "raw": "{{baseUrl}}/results",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -3814,12 +4347,12 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:3001/api/v1/results",
+              "raw": "{{baseUrl}}/results",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -3840,12 +4373,12 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:3001/api/v1/results?since=not-a-date",
+              "raw": "{{baseUrl}}/results?since=not-a-date",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "3001",
+              "port": "3099",
               "path": [
                 "api",
                 "v1",
@@ -3908,12 +4441,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets",
+          "raw": "{{baseUrl}}/question-sets",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -3953,12 +4486,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets",
+          "raw": "{{baseUrl}}/question-sets",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -3998,12 +4531,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets",
+          "raw": "{{baseUrl}}/question-sets",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4037,12 +4570,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets",
+          "raw": "{{baseUrl}}/question-sets",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4085,12 +4618,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets",
+          "raw": "{{baseUrl}}/question-sets",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4121,12 +4654,12 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets",
+          "raw": "{{baseUrl}}/question-sets",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4157,12 +4690,12 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/2",
+          "raw": "{{baseUrl}}/question-sets/2",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4194,12 +4727,12 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/999",
+          "raw": "{{baseUrl}}/question-sets/999",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4231,12 +4764,12 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/abc",
+          "raw": "{{baseUrl}}/question-sets/abc",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4277,12 +4810,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/2",
+          "raw": "{{baseUrl}}/question-sets/2",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4341,12 +4874,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/1",
+          "raw": "{{baseUrl}}/question-sets/1",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4387,12 +4920,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/2",
+          "raw": "{{baseUrl}}/question-sets/2",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4423,12 +4956,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3001/api/v1/question-sets/3",
+          "raw": "{{baseUrl}}/question-sets/3",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3001",
+          "port": "3099",
           "path": [
             "api",
             "v1",
@@ -4443,7 +4976,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:3001/api/v1"
+      "value": "{{baseUrl}}"
     },
     {
       "key": "host",
@@ -4533,5 +5066,6 @@
       "key": "player2Token",
       "value": ""
     }
-  ]
+  ],
+  "event": []
 }

@@ -1,40 +1,63 @@
-# Week 15 kit: starter OpenAPI document. The Hub Contract and account endpoints are written for you.
-# Replace every CHANGE_ME, then add one entry under paths for EVERY endpoint of your game
-# (the check needs at least 15 operations, each with a summary and its responses).
+
 openapi: 3.0.3
+
 info:
-  title: CHANGE_ME Your Game API
+  title: Shinobi Quiz Battle API
   version: 1.0.0
   description: >
-    CHANGE_ME: one paragraph about your game. Implements Hub Contract v1.3. Every error answers { "error": { "code",
-    "message" } }.
+    Shinobi Quiz Battle is a responsive multiplayer educational quiz game
+    where students answer questions, collect Chakra, and compete for the
+    highest Ninja Rank. The API supports user accounts, question sets,
+    multiplayer game sessions, player answers, leaderboards, and integration
+    with the Library Game Hub through Hub Contract v1.3.
 
+    Every standard error response uses the format:
+    { "error": { "code": "ERROR_CODE", "message": "Description" } }.
 
-    Log in with POST /auth/login, then click Authorize and paste the token.
+    Register or log in with POST /auth/login, then click Authorize and
+    paste the returned JWT token.
   contact:
-    name: CHANGE_ME your name (your GitHub username)
+    name: devlou-rens
+
 servers:
   - url: /api/v1
-    description: This server
+    description: Shinobi Quiz Battle API
+
 tags:
   - name: Hub Contract
-    description: The endpoints every game provides to the Library Game Hub
+    description: Endpoints used by the Library Game Hub
   - name: Accounts
+    description: User registration and authentication
+  - name: Users
+    description: Account administration
+  - name: Sessions
+    description: Multiplayer game session management
+  - name: Players
+    description: Joining sessions and viewing players
+  - name: Answers
+    description: Submitting answers during a game
+  - name: Question Sets
+    description: Creating and managing question sets
+  - name: Questions
+    description: Managing questions and choices
+
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: The token from POST /auth/login
+      description: JWT token returned by POST /auth/login
+
     hubKey:
       type: apiKey
       in: header
       name: X-Hub-Key
-      description: The key the Library Game Hub sends
+      description: API key provided by the Library Game Hub
+
   responses:
     BadRequest:
-      description: The request is malformed (a field, the URL or the JSON itself)
+      description: The request contains invalid data or parameters
       content:
         application/json:
           schema:
@@ -42,12 +65,10 @@ components:
           example:
             error:
               code: VALIDATION_FAILED
-              message: title must be 3 to 150 characters long
-              details:
-                - field: title
-                  message: title must be 3 to 150 characters long
+              message: The submitted data is invalid.
+
     Unauthorized:
-      description: No login, or the token is not valid
+      description: Authentication is required or the supplied token is invalid
       content:
         application/json:
           schema:
@@ -55,9 +76,10 @@ components:
           example:
             error:
               code: AUTH_REQUIRED
-              message: "Log in first: send the header Authorization: Bearer <token>."
+              message: Log in first.
+
     Forbidden:
-      description: Logged in, but not allowed to do this
+      description: The authenticated user does not have permission
       content:
         application/json:
           schema:
@@ -65,19 +87,22 @@ components:
           example:
             error:
               code: FORBIDDEN
-              message: This question set belongs to another host.
+              message: You are not allowed to perform this action.
+
     NotFound:
-      description: That thing does not exist
+      description: The requested resource does not exist
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/Error"
+
     Conflict:
-      description: Well formed and allowed, but it clashes with the current state
+      description: The request conflicts with existing data or the current state
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/Error"
+
   schemas:
     Error:
       type: object
@@ -95,6 +120,7 @@ components:
               example: VALIDATION_FAILED
             message:
               type: string
+              example: The submitted data is invalid.
             details:
               type: array
               items:
@@ -104,6 +130,7 @@ components:
                     type: string
                   message:
                     type: string
+
     User:
       type: object
       properties:
@@ -112,19 +139,37 @@ components:
           example: 1
         school_id:
           type: string
-          example: 2099-0001
+          example: "20240001"
         full_name:
           type: string
           example: Maria Ong
         email:
           type: string
           format: email
+          example: maria@example.com
         role:
           type: string
           enum:
             - PLAYER
             - HOST
             - ADMIN
+          example: PLAYER
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT authentication token
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: string
+          example: 1h
+        user:
+          $ref: "#/components/schemas/User"
+
     Meta:
       type: object
       properties:
@@ -140,73 +185,265 @@ components:
         pages:
           type: integer
           example: 3
+
+    Choice:
+      type: object
+      properties:
+        choiceId:
+          type: integer
+          example: 1
+        questionId:
+          type: integer
+          example: 1
+        choiceText:
+          type: string
+          example: Naruto
+        position:
+          type: integer
+          example: 0
+
+    Question:
+      type: object
+      properties:
+        questionId:
+          type: integer
+          example: 1
+        questionSetId:
+          type: integer
+          example: 1
+        text:
+          type: string
+          example: Who is the main character of Naruto?
+        type:
+          type: string
+          example: multiple-choice
+        timeLimit:
+          type: integer
+          example: 20
+        choices:
+          type: array
+          items:
+            $ref: "#/components/schemas/Choice"
+
+    QuestionInput:
+      type: object
+      required:
+        - text
+        - type
+        - timeLimit
+        - choices
+      properties:
+        text:
+          type: string
+          example: Who is the main character of Naruto?
+        type:
+          type: string
+          enum:
+            - multiple-choice
+        timeLimit:
+          type: integer
+          minimum: 1
+          example: 20
+        choices:
+          type: array
+          minItems: 2
+          items:
+            type: object
+            required:
+              - choiceText
+              - isCorrect
+            properties:
+              choiceText:
+                type: string
+                example: Naruto
+              isCorrect:
+                type: boolean
+                example: true
+          description: Exactly one choice must have isCorrect set to true.
+
+    QuestionSet:
+      type: object
+      properties:
+        questionSetId:
+          type: integer
+          example: 1
+        hostId:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Naruto General Knowledge
+        subject:
+          type: string
+          example: Anime
+        coverImage:
+          type: string
+          nullable: true
+          example: null
+
+    Session:
+      type: object
+      properties:
+        sessionId:
+          type: integer
+          example: 1
+        hostId:
+          type: integer
+          example: 1
+        questionSetId:
+          type: integer
+          example: 1
+        joinCode:
+          type: string
+          example: "123456"
+        status:
+          type: string
+          enum:
+            - LOBBY
+            - RUNNING
+            - CLOSED
+          example: LOBBY
+        timeLimit:
+          type: integer
+          example: 20
+        startTime:
+          type: string
+          format: date-time
+          nullable: true
+        endTime:
+          type: string
+          format: date-time
+          nullable: true
+        current_position:
+          type: integer
+          nullable: true
+          example: 1
+
+    Player:
+      type: object
+      properties:
+        playerId:
+          type: integer
+          example: 1
+        sessionId:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 2
+        nickname:
+          type: string
+          example: NarutoFan
+        avatar:
+          type: string
+          example: naruto
+        chakra:
+          type: integer
+          example: 100
+
+    AnswerResult:
+      type: object
+      properties:
+        answerId:
+          type: integer
+          example: 1
+        questionId:
+          type: integer
+          example: 1
+        choiceId:
+          type: integer
+          example: 2
+        isCorrect:
+          type: boolean
+          example: true
+        pointsAwarded:
+          type: integer
+          example: 1000
+        chakra:
+          type: integer
+          example: 100
+
 paths:
   /health:
     get:
       tags:
         - Hub Contract
-      summary: Is the API up, and can it reach the database?
+      summary: Check API and database health
       responses:
         "200":
-          description: Up
+          description: API and database are available
           content:
             application/json:
               example:
                 status: ok
-                service: aklat-arena-api
-                version: 1.4.0
+                service: shinobi-quiz-battle-api
+                version: 1.0.0
                 database: up
                 uptime_seconds: 42
-                timestamp: 2026-11-25T02:00:00.000Z
+                timestamp: "2026-11-24T10:00:00.000Z"
         "503":
           description: The database cannot be reached
+
   /game-info:
     get:
       tags:
         - Hub Contract
-      summary: What the Hub shows about this game
+      summary: Get game information for the Library Game Hub
       responses:
         "200":
-          description: The game card
+          description: Game information
           content:
             application/json:
               example:
-                slug: your-game-slug
-                name: Your Game
-                team: Your group (3-1)
-                developer: your-github-username
-                description: One sentence.
-                min_players: 2
-                max_players: 60
+                slug: shinobi-quiz-battle
+                name: Shinobi Quiz Battle
+                team: Team 2 BSCS 3-1
+                developer: devlou-rens
+                description: A responsive multiplayer educational quiz game.
+                min_players: 1
+                max_players: 50
                 version: 1.0.0
+
   /results:
     get:
       tags:
         - Hub Contract
-      summary: Finished games, every player, and the podium (rule 7)
+      summary: Retrieve finished game results for the Library Game Hub
       security:
         - hubKey: []
       parameters:
         - name: since
           in: query
-          description: Only games that ended after this date and time
+          description: Only include games that ended after this date and time
+          required: false
           schema:
             type: string
             format: date-time
       responses:
         "200":
-          description: The finished games
-          oldest first: null
+          description: Finished game results
+          content:
+            application/json:
+              example:
+                game: shinobi-quiz-battle
+                developer: devlou-rens
+                generated_at: "2026-11-24T10:00:00.000Z"
+                results: []
         "400":
-          $ref: "#/components/responses/BadRequest"
+          description: Invalid since parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         "401":
-          description: The X-Hub-Key header is missing or wrong
+          description: The X-Hub-Key header is missing or incorrect
+
   /auth/register:
     post:
       tags:
         - Accounts
-      summary: Create a PLAYER account
-      description: A role in the body is ignored. Admins promote hosts with PATCH /users/{id}/role.
+      summary: Register a new PLAYER account
+      description: New accounts are assigned the PLAYER role. A supplied role is ignored.
       requestBody:
         required: true
         content:
@@ -221,26 +458,25 @@ paths:
               properties:
                 school_id:
                   type: string
-                  pattern: ^\d{4}-\d{4}$
-                  example: 2099-3001
+                  example: "20240001"
+                  description: Eight digits, optionally formatted with a hyphen after four digits.
                 full_name:
                   type: string
-                  minLength: 2
                   maxLength: 100
                   example: Nina Cruz
                 email:
                   type: string
                   format: email
-                  example: nina@aklatarena.test
+                  example: nina@example.com
                 password:
                   type: string
                   minLength: 8
                   maxLength: 72
-                  description: At least one letter and one number
+                  description: Must contain at least one letter and one number.
                   example: Libro-2026
       responses:
         "201":
-          description: Created
+          description: Account successfully registered
           content:
             application/json:
               schema:
@@ -251,12 +487,13 @@ paths:
         "400":
           $ref: "#/components/responses/BadRequest"
         "409":
-          description: SCHOOL_ID_TAKEN or EMAIL_TAKEN
+          $ref: "#/components/responses/Conflict"
+
   /auth/login:
     post:
       tags:
         - Accounts
-      summary: School ID and password in, a token out
+      summary: Log in using school ID and password
       requestBody:
         required: true
         content:
@@ -269,40 +506,36 @@ paths:
               properties:
                 school_id:
                   type: string
-                  example: 2099-0001
+                  example: "20240001"
                 password:
                   type: string
-                  example: Aklat-Demo-2026
+                  example: Libro-2026
       responses:
         "200":
-          description: Logged in
+          description: Login successful
           content:
             application/json:
-              example:
-                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIn0.sig
-                token_type: Bearer
-                expires_in: 1h
-                user:
-                  user_id: 1
-                  school_id: 2099-0001
-                  full_name: Maria Ong
-                  email: maria.ong@aklatarena.test
-                  role: HOST
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
-          description: INVALID_CREDENTIALS
-          the same answer for an unknown school ID and a wrong password: null
+          description: Invalid school ID or password
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
   /auth/me:
     get:
       tags:
         - Accounts
-      summary: The account of the token
+      summary: Get the currently authenticated user's account
       security:
         - bearerAuth: []
       responses:
         "200":
-          description: The account
+          description: Current user account
           content:
             application/json:
               schema:
@@ -312,3 +545,832 @@ paths:
                     $ref: "#/components/schemas/User"
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /users:
+    get:
+      tags:
+        - Users
+      summary: List all user accounts
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: List of user accounts
+          content:
+            application/json:
+              example:
+                users:
+                  - user_id: 1
+                    school_id: "20240001"
+                    full_name: Maria Ong
+                    email: maria@example.com
+                    role: HOST
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+  /users/{id}/role:
+    patch:
+      tags:
+        - Users
+      summary: Change a user's role
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - role
+              properties:
+                role:
+                  type: string
+                  enum:
+                    - PLAYER
+                    - HOST
+                    - ADMIN
+                  example: HOST
+      responses:
+        "200":
+          description: User role successfully changed
+          content:
+            application/json:
+              example:
+                user:
+                  user_id: 2
+                  school_id: "20240002"
+                  full_name: Naruto Fan
+                  email: naruto@example.com
+                  role: HOST
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+
+  /sessions:
+    post:
+      tags:
+        - Sessions
+      summary: Create a new multiplayer game session
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - questionSetId
+                - timeLimit
+              properties:
+                questionSetId:
+                  type: integer
+                  example: 1
+                timeLimit:
+                  type: integer
+                  example: 20
+      responses:
+        "201":
+          description: Game session created
+          content:
+            application/json:
+              example:
+                message: Session created successfully.
+                session:
+                  sessionId: 1
+                  hostId: 1
+                  questionSetId: 1
+                  joinCode: "123456"
+                  status: LOBBY
+                  timeLimit: 20
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+  /sessions/{code}:
+    get:
+      tags:
+        - Sessions
+      summary: Retrieve a game session using its join code
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^\d{6}$'
+            example: "123456"
+      responses:
+        "200":
+          description: Game session information
+          content:
+            application/json:
+              example:
+                session:
+                  sessionId: 1
+                  hostId: 1
+                  questionSetId: 1
+                  joinCode: "123456"
+                  status: LOBBY
+                  timeLimit: 20
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags:
+        - Sessions
+      summary: Update the status or current question position of a session
+      description: Only a host or admin can update the session.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "123456"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - LOBBY
+                    - RUNNING
+                    - CLOSED
+                current_position:
+                  type: integer
+                  minimum: 1
+                  example: 2
+              description: Provide status or current_position, depending on the update.
+      responses:
+        "200":
+          description: Session successfully updated
+          content:
+            application/json:
+              example:
+                message: Session updated successfully.
+                session:
+                  sessionId: 1
+                  joinCode: "123456"
+                  status: RUNNING
+                  current_position: 1
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+
+  /sessions/{code}/question:
+    get:
+      tags:
+        - Sessions
+      summary: Get the current unanswered question for a player
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "123456"
+      responses:
+        "200":
+          description: Current question and its choices
+          content:
+            application/json:
+              example:
+                question:
+                  questionId: 1
+                  questionSetId: 1
+                  text: Who is the main character of Naruto?
+                  type: multiple-choice
+                  timeLimit: 20
+                  choices:
+                    - choiceId: 1
+                      choiceText: Naruto
+                      position: 0
+                    - choiceId: 2
+                      choiceText: Sasuke
+                      position: 1
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+
+  /sessions/{code}/answers:
+    post:
+      tags:
+        - Answers
+      summary: Submit an answer to the active question
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "123456"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - questionId
+                - choiceId
+              properties:
+                questionId:
+                  type: integer
+                  example: 1
+                choiceId:
+                  type: integer
+                  example: 1
+      responses:
+        "201":
+          description: Answer successfully submitted
+          content:
+            application/json:
+              example:
+                message: Answer submitted successfully.
+                data:
+                  answerId: 1
+                  questionId: 1
+                  choiceId: 1
+                  isCorrect: true
+                  pointsAwarded: 1000
+                  chakra: 100
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+
+  /sessions/{code}/players:
+    post:
+      tags:
+        - Players
+      summary: Join or rejoin a game session
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "123456"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nickname
+                - avatar
+              properties:
+                nickname:
+                  type: string
+                  minLength: 2
+                  example: NarutoFan
+                avatar:
+                  type: string
+                  example: naruto
+      responses:
+        "200":
+          description: Existing player successfully rejoined
+          content:
+            application/json:
+              example:
+                message: Player rejoined successfully.
+                rejoined: true
+                player:
+                  playerId: 1
+                  nickname: NarutoFan
+                  avatar: naruto
+                  chakra: 100
+        "201":
+          description: New player successfully joined
+          content:
+            application/json:
+              example:
+                message: Player joined successfully.
+                rejoined: false
+                player:
+                  playerId: 1
+                  nickname: NarutoFan
+                  avatar: naruto
+                  chakra: 0
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+
+    get:
+      tags:
+        - Players
+      summary: List players who joined a game session
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "123456"
+      responses:
+        "200":
+          description: Players in the session
+          content:
+            application/json:
+              example:
+                players:
+                  - playerId: 1
+                    nickname: NarutoFan
+                    avatar: naruto
+                    chakra: 100
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /sessions/{code}/leaderboard:
+    get:
+      tags:
+        - Players
+      summary: Retrieve the session leaderboard
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "123456"
+        - name: limit
+          in: query
+          required: false
+          description: Number of leaderboard entries to return, from 1 to 100
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+      responses:
+        "200":
+          description: Leaderboard ordered by player ranking
+          content:
+            application/json:
+              example:
+                leaderboard:
+                  - playerId: 1
+                    nickname: NarutoFan
+                    avatar: naruto
+                    chakra: 500
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /question-sets:
+    post:
+      tags:
+        - Question Sets
+      summary: Create a new question set
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - subject
+              properties:
+                title:
+                  type: string
+                  example: Naruto General Knowledge
+                subject:
+                  type: string
+                  example: Anime
+      responses:
+        "201":
+          description: Question set created
+          content:
+            application/json:
+              example:
+                data:
+                  questionSetId: 1
+                  hostId: 1
+                  title: Naruto General Knowledge
+                  subject: Anime
+                  coverImage: null
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+  /question-sets/{id}:
+    get:
+      tags:
+        - Question Sets
+      summary: Get one question set
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: include
+          in: query
+          required: false
+          description: Set to questions to include the question list
+          schema:
+            type: string
+            enum:
+              - questions
+      responses:
+        "200":
+          description: Question set information
+          content:
+            application/json:
+              example:
+                data:
+                  questionSetId: 1
+                  hostId: 1
+                  title: Naruto General Knowledge
+                  subject: Anime
+                  coverImage: null
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags:
+        - Question Sets
+      summary: Update a question set
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Naruto Advanced Quiz
+                subject:
+                  type: string
+                  example: Anime
+      responses:
+        "200":
+          description: Question set updated
+          content:
+            application/json:
+              example:
+                data:
+                  questionSetId: 1
+                  title: Naruto Advanced Quiz
+                  subject: Anime
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags:
+        - Question Sets
+      summary: Delete a question set
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "204":
+          description: Question set successfully deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+
+  /question-sets/{id}/questions:
+    get:
+      tags:
+        - Questions
+      summary: List questions in a question set
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 10
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum:
+              - questionId
+              - text
+              - type
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Paginated questions in the question set
+          content:
+            application/json:
+              example:
+                data:
+                  - questionId: 1
+                    questionSetId: 1
+                    text: Who is the main character of Naruto?
+                    type: multiple-choice
+                    timeLimit: 20
+                    choices:
+                      - choiceId: 1
+                        choiceText: Naruto
+                        position: 0
+                meta:
+                  page: 1
+                  limit: 10
+                  total: 1
+                  pages: 1
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    post:
+      tags:
+        - Questions
+      summary: Add a question to a question set
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuestionInput"
+      responses:
+        "201":
+          description: Question created
+          content:
+            application/json:
+              example:
+                data:
+                  questionId: 1
+                  questionSetId: 1
+                  text: Who is the main character of Naruto?
+                  type: multiple-choice
+                  timeLimit: 20
+                  choices:
+                    - choiceId: 1
+                      choiceText: Naruto
+                      position: 0
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /question-sets/{id}/questions/{questionId}:
+    patch:
+      tags:
+        - Questions
+      summary: Update a question in a question set
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuestionInput"
+      responses:
+        "200":
+          description: Question updated
+          content:
+            application/json:
+              example:
+                data:
+                  questionId: 1
+                  questionSetId: 1
+                  text: Which village is Naruto from?
+                  type: multiple-choice
+                  timeLimit: 20
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags:
+        - Questions
+      summary: Delete a question from a question set
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "204":
+          description: Question successfully deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /question-sets/{id}/cover:
+    put:
+      tags:
+        - Question Sets
+      summary: Upload a cover image for a question set
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - cover
+              properties:
+                cover:
+                  type: string
+                  format: binary
+                  description: PNG or JPEG image, maximum size 1 MB
+      responses:
+        "200":
+          description: Cover image uploaded
+          content:
+            application/json:
+              example:
+                data:
+                  questionSetId: 1
+                  title: Naruto General Knowledge
+                  subject: Anime
+                  coverImage: /uploads/question-set-cover.jpg
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "413":
+          description: Uploaded image exceeds the maximum file size

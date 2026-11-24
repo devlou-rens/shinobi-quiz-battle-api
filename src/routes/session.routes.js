@@ -1,3 +1,4 @@
+
 const { Router } = require('express');
 const sessionController = require('../controllers/session.controller');
 const playerController = require('../controllers/player.controller');
@@ -35,14 +36,23 @@ router.get(
 );
 
 // Update session status: only a host or admin may do this.
-router.patch('/:code', requireUser('HOST', 'ADMIN'), sessionController.updateSessionStatus);
+router.patch(
+  '/:code',
+  requireUser('HOST', 'ADMIN'),
+  sessionController.updateSessionStatus
+);
 
 // Join a session or rejoin as the same user.
-router.post('/:code/players', playerController.joinSession);
+router.post(
+  '/:code/players',
+  requireUser(),
+  playerController.joinSession
+);
 
 // List players in a session.
 router.get('/:code/players', playerController.getSessionPlayers);
 
+// Retrieve the session leaderboard.
 router.get('/:code/leaderboard', playerController.getLeaderboard);
 
 module.exports = router;

@@ -4,12 +4,20 @@ const env = require('../config/env');
 const dbConfig = require('../config/database')[env.nodeEnv];
 
 // Initialize the database connection first.
-const sequelize = new Sequelize(
-  dbConfig.database,
-  dbConfig.username,
-  dbConfig.password,
-  dbConfig
-);
+// Initialize the database connection first.
+const sequelize = dbConfig.url
+  ? new Sequelize(dbConfig.url, {
+      dialect: dbConfig.dialect,
+      logging: dbConfig.logging,
+      dialectOptions: dbConfig.dialectOptions,
+      pool: dbConfig.pool,
+    })
+  : new Sequelize(
+      dbConfig.database,
+      dbConfig.username,
+      dbConfig.password,
+      dbConfig
+    );
 
 // Load models.
 const User = require('./user')(sequelize, DataTypes);

@@ -8,6 +8,7 @@ CS 313 Software Engineering 1, A.Y. 2026–2027.
 
 This is my own build of my group's game concept. Every commit in this repository was made by me, with Git, on my own computer or in my own Codespace.
 
+
 ## Tech stack
 
 | Layer | Tool |
@@ -150,3 +151,34 @@ These are development and testing accounts only. Do not use these credentials in
 | `npm run db:check` | Counts the rows in every table |
 | `npm run db:reset` | Rebuilds the database and reloads seed data |
 | `npm run check` | Runs the automatic project check |
+
+
+## Automated tests
+
+The project uses Jest for automated testing and Supertest for API endpoint testing.
+
+### Run all tests
+
+```bash
+npm test
+```
+
+### Run tests with coverage
+
+```bash
+npm run test:coverage
+```
+
+The coverage report shows how much of the source code is covered by the tests. Jest also generates a `coverage` folder containing the detailed report.
+
+### Test database
+
+Automated tests use a dedicated test database named `shinobi_quiz_battle_test`.
+
+Before running the tests, the Jest global setup prepares the test database by:
+1. Creating the test database if it does not exist.
+2. Clearing the test database.
+3. Running all database migrations.
+4. Loading the seed data.
+
+**Important:** Automated tests should use the dedicated test database, not the development or production database.

@@ -247,6 +247,13 @@ async function updateSessionStatus(joinCode, changes = {}) {
 
   // Handle status changes.
   if (status !== undefined) {
+    if (status === 'CLOSED' && session.status === 'CLOSED') {
+      if (!session.endTime) {
+        await session.update({ endTime: new Date() });
+      }
+      return session;
+    }
+
     const allowedTransitions = {
       LOBBY: ['RUNNING', 'CLOSED'],
       RUNNING: ['CLOSED'],

@@ -42,7 +42,7 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 
 ## M3 · Gameplay
 
-- **Dates worked:** November 22–23, 2026 · **Time spent:** [confirm total hours]
+- **Dates worked:** November 22–23, 2026 · **Time spent:** 8hrs total
 - **Goal:** Make the gameplay work properly, from starting a game until players finish answering questions and the results are displayed.
 - **What I built:** Added the `PlayerQuestion` model and table to track each player's progress. Updated the gameplay so players can answer questions at their own pace without affecting other players. Added answer checking, automatic score calculation, and Chakra updates. Also added question timing, a game timer that closes expired sessions, a live leaderboard, and a protected results endpoint for the Game Hub. Updated the Postman collection to test the complete gameplay flow.
 - **Evidence:** Branch `feature/gameplay` · Commit `b08e74a` — `feat: complete gameplay flow and results verification`. Tested the gameplay and results using Postman and PostgreSQL.
@@ -55,6 +55,19 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 - **What I would explain to a classmate:** I learned that a multiplayer quiz game needs to track every player's progress separately. The server should calculate the score and answer time so players cannot simply send their own scores. I also learned that database transactions help keep the answer records and player scores consistent.
 
 ## M4 · Automated tests and server preparation
+
+- Dates worked: November 24, 2026 · Time spent: 7hrs total
+- Goal: Prepare the Shinobi Quiz Battle API for deployment and make sure its important features work correctly through automated unit tests, HTTP tests, and server configuration checks.
+- What I built: Added Jest unit tests and Supertest HTTP tests. Configured a separate PostgreSQL test database named `shinobi_quiz_battle_test` so automated tests would not affect my development database. Updated the Jest setup to prepare the test database, run migrations, and load seed data before testing. Added database safety checks to prevent the test database wipe script from running in the wrong environment. Added tests for answer scoring, answer submission security, authentication, validation, error handling, and other application functions. Updated the Postman collection to complete a game and verify the results endpoint. Also improved the completed-game handling so a session can be closed when all players have answered every question. Prepared the server for Render deployment by configuring environment variables, database connections, security headers, and CORS.
+- Evidence:
+  - Server preparation branch: `feature/deploy-prep` · Commit `5f7e95e` — `chore: prepare server for Render deployment` · PR #8 merged into `main`.
+  - Automated testing branch: `feature/tests` · Commit `0c76bf2` — `test: add automated unit and API coverage`.
+  - Test results: 21 test suites passed, 117 tests passed, and 62.45% line coverage. CI checker results J, K, and L all passed.
+- Problem I hit: Automated tests needed to run without affecting my development database. I also encountered a syntax error in the answer service test because I accidentally imported `pointsFor` twice. Another important requirement was making sure that a player who had not joined a game could not submit an answer.
+- How I solved it: Created a dedicated test database and configured Jest to use it when `NODE_ENV=test`. Added safeguards to the database wipe scripts. Removed the duplicate import and tested the answer service again. Added a security test confirming that an unseated user receives a 403 response and that no answer transaction or record is created.
+- Decision I made and why: Used Jest for unit testing and Supertest for HTTP testing because they allow me to test individual functions and API behavior. Kept the test database separate from the development database to protect existing data. Used a CORS allowlist so only configured browser origins are accepted.
+- Changes to my design set: Added automated testing requirements and a separate test database configuration. Updated the answer submission and results handling to support completed-game verification. Added server security and CORS configuration, along with README instructions for running tests.
+- What I would explain to a classmate: Automated testing helps find problems before an application is deployed. Unit tests check individual functions, while HTTP tests check how API endpoints behave. Code coverage shows how much code was executed during testing, but it does not guarantee that the application is completely bug-free. A separate test database is also important because tests should never accidentally delete or modify development data.
 
 ## M5 · API documentation and deployment
 

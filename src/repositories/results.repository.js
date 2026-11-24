@@ -2,6 +2,43 @@
 const { QueryTypes } = require('sequelize');
 const { sequelize } = require('../models');
 
+async function finalizeCompletedGames() {
+  await sequelize.query(`
+    UPDATE "GameSession" gs
+    SET
+      status = 'CLOSED',
+      "endTime" = COALESCE(gs."endTime", NOW())
+    WHERE gs."status" = 'RUNNING'
+      AND EXISTS (
+        SELECT 1
+        FROM "Player" p
+        WHERE p."sessionId" = gs."sessionId"
+      )
+      AND EXISTS (
+        SELECT 1
+        FROM "Question" q
+        WHERE q."questionSetId" = gs."questionSetId"
+      )
+      AND NOT EXISTS (
+        SELECT 1
+        FROM "Player" p
+        WHERE p."sessionId" = gs."sessionId"
+          AND (
+            SELECT COUNT(DISTINCT a."questionId")
+            FROM "Answer" a
+            JOIN "Question" q
+              ON q."questionId" = a."questionId"
+             AND q."questionSetId" = gs."questionSetId"
+            WHERE a."playerId" = p."playerId"
+          ) < (
+            SELECT COUNT(*)
+            FROM "Question" q
+            WHERE q."questionSetId" = gs."questionSetId"
+          )
+      )
+  `);
+}
+
 async function findFinishedGamePlayers(since) {
   const sql = `
     SELECT
@@ -55,4 +92,4 @@ async function findFinishedGamePlayers(since) {
   });
 }
 
-module.exports = { findFinishedGamePlayers };
+module.exports = { finalizeCompletedGames, findFinishedGamePlayers };

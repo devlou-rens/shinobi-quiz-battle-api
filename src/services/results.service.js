@@ -19,6 +19,7 @@ function rankPlayers(players) {
 }
 
 async function listFinishedGames(since) {
+  await resultsRepository.finalizeCompletedGames();
   const rows = await resultsRepository.findFinishedGamePlayers(since);
 
   // One entry per finished game, in the order the games ended.

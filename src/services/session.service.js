@@ -1,3 +1,4 @@
+
 const {
   sequelize,
   GameSession,
@@ -5,16 +6,17 @@ const {
   PlayerQuestion,
   Question,
   QuestionChoice,
-  Answer,
 } = require('../models');
 
 const {
   badRequest,
   notFound,
   conflict,
+  forbidden,
 } = require('../errors/app-error');
 
 const checkGameTime = require('./game-timer.service');
+const { Op } = require('sequelize');
 
 const ALLOWED_STATUSES = ['LOBBY', 'RUNNING', 'CLOSED'];
 
@@ -121,7 +123,7 @@ async function getCurrentQuestion(joinCode, userId) {
       const completedCount = await PlayerQuestion.count({
         where: {
           playerId: player.playerId,
-          answeredAt: { [require('sequelize').Op.ne]: null },
+          answeredAt: { [Op.ne]: null },
         },
         transaction,
       });
@@ -153,7 +155,7 @@ async function getCurrentQuestion(joinCode, userId) {
         where: {
           questionSetId: session.questionSetId,
           questionId: {
-            [require('sequelize').Op.notIn]: completedIds,
+            [Op.notIn]: completedIds,
           },
         },
         attributes: ['questionId'],
@@ -222,8 +224,7 @@ async function getCurrentQuestion(joinCode, userId) {
   });
 }
 
-
-async function updateSessionStatus(joinCode, changes = {}) {
+async function updateSessionStatus(joinCode, changes = {}, caller = {}) {
   const { status, current_position } = changes;
 
   if (status !== undefined && !ALLOWED_STATUSES.includes(status)) {
@@ -241,6 +242,20 @@ async function updateSessionStatus(joinCode, changes = {}) {
 
   if (!session) {
     throw notFound('SESSION_NOT_FOUND', 'Session not found.');
+  }
+
+  // Only the session host or an admin may update this session.
+  const callerRole = String(caller.role || '').toUpperCase();
+
+  const isAdmin = callerRole === 'ADMIN';
+  const isSessionHost =
+    callerRole === 'HOST' &&
+    String(session.hostId) === String(caller.userId);
+
+  if (!isAdmin && !isSessionHost) {
+    throw forbidden(
+      'Only the session host or an admin may update this session.'
+    );
   }
 
   const updates = {};
@@ -326,7 +341,6 @@ async function updateSessionStatus(joinCode, changes = {}) {
 
   return session;
 }
-
 
 module.exports = {
   createSession,

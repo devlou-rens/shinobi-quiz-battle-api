@@ -55,6 +55,7 @@ async function getCurrentQuestion(req, res, next) {
   }
 }
 
+
 async function updateSessionStatus(req, res, next) {
   try {
     const session = await sessionService.updateSessionStatus(
@@ -62,6 +63,10 @@ async function updateSessionStatus(req, res, next) {
       {
         status: req.body.status,
         current_position: req.body.current_position,
+      },
+      {
+        userId: req.user.user_id,
+        role: req.user.role,
       }
     );
 
@@ -73,6 +78,7 @@ async function updateSessionStatus(req, res, next) {
     next(error);
   }
 }
+
 
 module.exports = {
   createSession,

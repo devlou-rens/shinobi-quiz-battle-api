@@ -1,6 +1,6 @@
 {
   "name": "shinobi-quiz-battle-api",
-  "version": "1.0.0",
+  "version": "1.6.1",
   "description": "My individual build of Shinobi Quiz Battle for CS 313",
   "main": "src/server.js",
   "scripts": {

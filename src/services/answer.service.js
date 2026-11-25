@@ -1,3 +1,4 @@
+
 const {
   sequelize,
   GameSession,
@@ -33,7 +34,6 @@ function pointsFor(question, isCorrect, elapsedMs) {
   );
 }
 
-// Calculate points using server-measured elapsed time.
 async function submitAnswer(joinCode, userId, questionId, choiceId) {
   // 1. Check that the session exists and is running.
   const session = await GameSession.findOne({
@@ -44,7 +44,9 @@ async function submitAnswer(joinCode, userId, questionId, choiceId) {
     throw notFound('SESSION_NOT_FOUND', 'Session not found.');
   }
 
+  // The game timer is responsible for closing expired sessions.
   await checkGameTime(session);
+
   if (session.status !== 'RUNNING') {
     throw conflict('GAME_NOT_RUNNING', 'The game is not running.');
   }
@@ -177,38 +179,7 @@ async function submitAnswer(joinCode, userId, questionId, choiceId) {
     };
   });
 
-  // Complete the game automatically once every seated player has answered
-  // every question. This makes the end state durable even before a host
-  // sends a final CLOSE request.
-  if (session.status === 'RUNNING') {
-    const totalQuestions = await Question.count({
-      where: { questionSetId: session.questionSetId },
-    });
-    const players = await Player.findAll({
-      where: { sessionId: session.sessionId },
-      attributes: ['playerId'],
-    });
-
-    if (totalQuestions > 0 && players.length > 0) {
-      const completionCounts = await Promise.all(
-        players.map((seat) =>
-          Answer.count({
-            where: { playerId: seat.playerId },
-            distinct: true,
-            col: 'questionId',
-          })
-        )
-      );
-
-      if (completionCounts.every((count) => count >= totalQuestions)) {
-        await session.update({
-          status: 'CLOSED',
-          endTime: new Date(),
-        });
-      }
-    }
-  }
-
+  // Return the answer result without automatically closing the game.
   return {
     answerId: result.answer.answerId,
     questionId: question.questionId,

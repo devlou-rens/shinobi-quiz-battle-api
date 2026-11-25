@@ -3,6 +3,7 @@
 Student: Lourens Gacias · Section: BSCS 3-1 · Group: Team 2
 
 One entry per milestone, written the week you did it. Newest at the bottom.
+
 ## Initial Setup · Weeks 12–18 Kit
 
 - Dates worked: November 12–13, 2026 · Time spent: 8hrs total
@@ -14,7 +15,6 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 - Decision I made and why: Kept PostgreSQL configuration and the existing API port 3001. Added JWT authentication settings and kept `.env` excluded from Git to protect secrets.
 - Changes to my design set: Added the password authentication requirement to the existing User model. The password migration and seeder will be documented during M1 implementation.
 - What I would explain to a classmate: Before adding new authentication features, I need to understand the existing database structure so that new changes do not break previously working features.
-
 
 ## M1 · Accounts, passwords and tokens
 
@@ -30,7 +30,7 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 
 ## M2 · The question bank
 
-- Dates worked: November 18, 2026 · Time spent: [confirm total hours]
+- Dates worked: November 18, 2026 · Time spent: 8hrs
 - Goal: Implement a complete question bank feature that allows hosts to manage questions and choices, search and organize questions, and upload question set cover images.
 - What I built: Added question bank endpoints with pagination, search, and sorting. Implemented nested question and choice management through `GET /question-sets/:id/questions`, `POST /question-sets/:id/questions`, `PATCH /question-sets/:id/questions/:questionId`, and `DELETE /question-sets/:id/questions/:questionId`. Added validation to require exactly one correct choice, automatically assign choice positions, and prevent changes to question sets already used by a game. Added the `QuestionChoice` model and database migration. Added `?include=questions` to retrieve a question set with its questions and choices. Implemented PNG/JPEG cover image uploads with file type and 1 MB size validation. Added demo question choices to the database seeder. Tested the endpoints using Postman.
 - Evidence: Branch `feature/question-bank` · Commits: `f52293d` — `feat: add question bank and cover image upload`; `c106f77` — `test: seed demo question choices`. Pull request: [Question Bank feature PR](https://github.com/devlou-rens/shinobi-quiz-battle-api/pull/5) (merged into `main`).
@@ -58,7 +58,7 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 
 - Dates worked: November 24, 2026 · Time spent: 7hrs total
 - Goal: Prepare the Shinobi Quiz Battle API for deployment and make sure its important features work correctly through automated unit tests, HTTP tests, and server configuration checks.
-- What I built: Added Jest unit tests and Supertest HTTP tests. Configured a separate PostgreSQL test database named `shinobi_quiz_battle_test` so automated tests would not affect my development database. Updated the Jest setup to prepare the test database, run migrations, and load seed data before testing. Added database safety checks to prevent the test database wipe script from running in the wrong environment. Added tests for answer scoring, answer submission security, authentication, validation, error handling, and other application functions. Updated the Postman collection to complete a game and verify the results endpoint. Also improved the completed-game handling so a session can be closed when all players have answered every question. Prepared the server for Render deployment by configuring environment variables, database connections, security headers, and CORS.
+- What I built: Added Jest unit tests and Supertest HTTP tests. Configured a separate PostgreSQL test database named `shinobi_quiz_battle_test` so automated tests would not affect my development database. Updated the Jest setup to prepare the test database, run migrations, and load seed data before testing. Added database safety checks to prevent the test database wipe script from running in the wrong environment. Added tests for answer scoring, answer submission security, authentication, validation, error handling, and other application functions. Updated the Postman collection to complete a game and verify the results endpoint. Improved gameplay handling so players can repeat randomized question cycles. A game session closes only when its 10-minute timer expires or the host manually closes it. Prepared the server for Render deployment by configuring environment variables, database connections, security headers, and CORS.
 - Evidence:
   - Server preparation branch: `feature/deploy-prep` · Commit `5f7e95e` — `chore: prepare server for Render deployment` · PR #8 merged into `main`.
   - Automated testing branch: `feature/tests` · Commit `0c76bf2` — `test: add automated unit and API coverage`.
@@ -71,7 +71,7 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 
 ## M5 · API documentation and deployment
 
-- **Dates worked:** November 24, 2026 · **Completion time:** 3hrs
+- **Dates worked:** November 24, 2026 · **Completion time:** 11:24 PM
 - **Goal:** Document the Shinobi Quiz Battle API and make the deployed Render API accessible with working documentation and a verified live health endpoint.
 - **What I built:** Added the live Render API URL, GitHub Actions status badge, and Swagger API documentation link to the README. Documented the deployment information so users can find the live API and its endpoints. Verified that the OpenAPI specification is available through `/openapi.json` and that Swagger UI is accessible through `/docs`. Checked the deployed API health and confirmed that its database connection is up.
 - **Evidence:**
@@ -88,5 +88,15 @@ One entry per milestone, written the week you did it. Newest at the bottom.
 - **What I would explain to a classmate:** OpenAPI describes an API's endpoints, request formats, and responses. Swagger UI makes that documentation interactive, allowing developers to inspect and test endpoints. A live health check is also important because it helps confirm that the deployed server is running and connected to its database.
 
 ## M6 · The SE1 portfolio and the release
+
+- **Dates worked:** November 25, 2026
+- **Goal:** Complete the SE1 portfolio documentation, prepare the project diagrams, and verify that the Shinobi Quiz Battle API meets the final Week 16 requirements.
+- **What I built:** Completed the technical specification, user guide, and SE2 frontend handoff. Generated the API reference from the OpenAPI specification and created the data dictionary from the actual database structure. Updated the data dictionary generator to produce the required `docs/data-dictionary.md` filename while preserving my written table and column descriptions. Exported all six project diagrams as PNG files: use case, class, sequence, activity, ERD, and architecture. Updated the README with links to the portfolio documents and prepared the version 1.0.0 changelog.
+- **Evidence:** Branch `feature/portfolio`. Generated documentation using `npm run docs:api` and `npm run docs:dictionary`. Verified that the data dictionary covers all 10 database tables and that the six diagram images exist in `docs/diagrams/`. Final automatic checker result: **54 passed, 0 failed**.
+- **Problem I hit:** The automatic checker initially failed the portfolio requirement because the generated data dictionary used `docs/datadictionary.md`, while the checker expected `docs/data-dictionary.md`. I also had two copies of the data dictionary in the documentation folder.
+- **How I solved it:** Updated `scripts/make-data-dictionary.js` to generate the required hyphenated filename and preserve the descriptions from the previous file. Regenerated the dictionary, checked that the descriptions remained, updated the README link, and removed the old duplicate file. Ran `npm run check` again and confirmed that all 54 checks passed.
+- **Decision I made and why:** Kept only one data dictionary file, `docs/data-dictionary.md`, because it matches the automatic checker's required filename. Used the actual database structure as the source for the dictionary so that the documentation reflects the implemented tables and columns. Kept the Mermaid diagram source files alongside the exported PNG images so the diagrams can still be edited later.
+- **Changes to my design set:** Completed the SE1 portfolio documentation and updated the project documentation structure. Added the six exported diagrams, generated API reference, and data dictionary. Documented the system architecture, database design, security, deployment, API usage, and frontend integration requirements.
+- **What I would explain to a classmate:** A software project is not complete just because its features work. It also needs clear documentation so other developers can understand, test, maintain, and continue the project. I learned that generated documentation must match the actual code and database, and that automatic checkers can enforce exact filenames and required project files. Running the full checker before submitting also helped me catch and fix the missing data dictionary requirement.
 
 ## M7 · The Test Report

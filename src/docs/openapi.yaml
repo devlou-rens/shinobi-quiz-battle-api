@@ -3,7 +3,7 @@ openapi: 3.0.3
 
 info:
   title: Shinobi Quiz Battle API
-  version: 1.0.0
+  version: 1.6.1
   description: >
     Shinobi Quiz Battle is a responsive multiplayer educational quiz game
     where students answer questions, collect Chakra, and compete for the
@@ -377,7 +377,7 @@ paths:
               example:
                 status: ok
                 service: shinobi-quiz-battle-api
-                version: 1.0.0
+                version: 1.6.1
                 database: up
                 uptime_seconds: 42
                 timestamp: "2026-11-24T10:00:00.000Z"
@@ -402,7 +402,7 @@ paths:
                 description: A responsive multiplayer educational quiz game.
                 min_players: 1
                 max_players: 50
-                version: 1.0.0
+                version: 1.6.1
 
   /results:
     get:
@@ -1374,3 +1374,4 @@ paths:
           $ref: "#/components/responses/NotFound"
         "413":
           description: Uploaded image exceeds the maximum file size
+

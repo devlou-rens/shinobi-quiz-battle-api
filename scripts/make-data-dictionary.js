@@ -7,20 +7,29 @@ const path = require('path');
 const { QueryTypes } = require('sequelize');
 const { sequelize } = require('../src/models');
 
+const LEGACY_OUT = path.join(__dirname, '..', 'docs', 'datadictionary.md');
 const OUT = path.join(__dirname, '..', 'docs', 'data-dictionary.md');
 const q = (sql) => sequelize.query(sql, { type: QueryTypes.SELECT });
 
 // "| table.column | ... | description |" lines of the old file, by table.column.
 function oldDescriptions() {
-  if (!fs.existsSync(OUT)) return {};
+  const source = fs.existsSync(OUT) ? OUT : LEGACY_OUT;
+  if (!fs.existsSync(source)) return {};
+
   const found = {};
   let table = null;
-  for (const line of fs.readFileSync(OUT, 'utf8').split('\n')) {
+
+  for (const line of fs.readFileSync(source, 'utf8').split('\n')) {
     const heading = line.match(/^### `(\w+)`/);
     if (heading) table = heading[1];
+
     const cells = line.split('|').map((c) => c.trim());
-    if (table && cells.length > 7 && cells[1].startsWith('`')) found[`${table}.${cells[1].replace(/`/g, '')}`] = cells[cells.length - 2];
+
+    if (table && cells.length > 7 && cells[1].startsWith('`')) {
+      found[`${table}.${cells[1].replace(/`/g, '')}`] = cells[cells.length - 2];
+    }
   }
+
   return found;
 }
 
@@ -34,7 +43,7 @@ async function main() {
       FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${table}' ORDER BY ordinal_position`);
     const cons = await q(`SELECT c.conname, c.contype, pg_get_constraintdef(c.oid) AS def, a.attname AS col
       FROM pg_constraint c JOIN pg_attribute a ON a.attrelid = c.conrelid AND a.attnum = ANY (c.conkey)
-      WHERE c.conrelid = '${table}'::regclass`);
+      WHERE c.conrelid = '"${table}"'::regclass`);
     lines.push(`### \`${table}\``, '', '| Column | Type | Null | Default | Keys and rules | Description |', '|---|---|---|---|---|---|');
     for (const col of cols) {
       const type = col.len ? `${col.data_type}(${col.len})` : col.data_type;

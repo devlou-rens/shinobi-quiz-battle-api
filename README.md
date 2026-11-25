@@ -1,5 +1,13 @@
 # Shinobi Quiz Battle API
 
+Backend API for **Shinobi Quiz Battle**, a tournament game for the SorSU Bulan Campus library.
+CS 313 Software Engineering 1, A.Y. 2026–2027.
+
+- **Developer:** Lourens Gacias (`devlou-rens`), BSCS 3-1
+- **Group and game concept:** Team 2 – Shinobi Quiz Battle
+
+This is my own build of my group's game concept. Every commit in this repository was made by me, with Git, on my own computer or in my own Codespace.
+
 ## Deploying to Render
 The Shinobi Quiz Battle API is deployed using Render Blueprint.
 
@@ -10,13 +18,16 @@ Live API: https://shinobi-quiz-battle-devlou-rens.onrender.com/api/v1
 
 **Swagger API Documentation:** https://shinobi-quiz-battle-devlou-rens.onrender.com/api/v1/docs/
 
-Backend API for **Shinobi Quiz Battle**, a tournament game for the SorSU Bulan Campus library.
-CS 313 Software Engineering 1, A.Y. 2026–2027.
+## Project Portfolio
 
-- **Developer:** Lourens Gacias (`devlou-rens`), BSCS 3-1
-- **Group and game concept:** Team 2 – Shinobi Quiz Battle
-
-This is my own build of my group's game concept. Every commit in this repository was made by me, with Git, on my own computer or in my own Codespace.
+- [Technical Specification](docs/technical-spec.md)
+- [Data Dictionary](docs/data-dictionary.md)
+- [API Reference](docs/api-reference.md)
+- [User Guide](docs/user-guide.md)
+- [SE2 Frontend Handoff](docs/se2-handoff.md)
+- [Development Journey](docs/development-journey.md)
+- [Project Diagrams](docs/diagrams/README.md)
+- [Changelog](CHANGELOG.md)
 
 
 ## Tech stack
